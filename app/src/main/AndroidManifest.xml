@@ -13,8 +13,13 @@
         android:theme="@style/Theme.MagicMexicanFire"
         tools:targetApi="31">
         <activity
+            android:name=".GamesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MenuActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".WelcomeActivity"
             android:exported="false"

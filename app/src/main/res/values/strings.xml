@@ -4,4 +4,6 @@
     <string name="text_exit"><u>Exit</u></string>
     <string name="btn_settings">btn_settings</string>
     <string name="button_games">button_games</string>
+    <string name="button_game_first">button game first</string>
+    <string name="button_game_second">button game second</string>
 </resources>
