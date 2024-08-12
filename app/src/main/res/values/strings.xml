@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Magic Mexican Fire</string>
     <string name="btn_next">button continue</string>
+    <string name="text_exit"><u>Exit</u></string>
+    <string name="btn_settings">btn_settings</string>
+    <string name="button_games">button_games</string>
 </resources>
