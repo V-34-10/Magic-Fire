@@ -6,4 +6,7 @@
     <string name="button_games">button_games</string>
     <string name="button_game_first">button game first</string>
     <string name="button_game_second">button game second</string>
+    <string name="button_level_second">button level second</string>
+    <string name="button_level_three">button level three</string>
+    <string name="button_level_first">button level first</string>
 </resources>
