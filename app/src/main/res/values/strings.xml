@@ -24,4 +24,9 @@
     <string name="read_privacy_text"><u>Read</u></string>
     <string name="btn_accept">btn_accept</string>
     <string name="text_privacy">Privacy policy and terms</string>
+    <string name="btn_claim">btn_claim</string>
+    <string name="text_default_steps">12 steps</string>
+    <string name="text_default_time">00:00</string>
+    <string name="btn_high_score">btn_high_score</string>
+    <string name="btn_change">btn_change</string>
 </resources>
