@@ -27,6 +27,10 @@ class LevelsActivity : AppCompatActivity() {
             setupLevelsGameButton(buttonLevelFirst, R.string.button_level_first, animationButton)
             setupLevelsGameButton(buttonLevelSecond, R.string.button_level_second, animationButton)
             setupLevelsGameButton(buttonLevelThree, R.string.button_level_three, animationButton)
+            textExit.setOnClickListener {
+                it.startAnimation(animationButton)
+                it.postDelayed({ finishAffinity() }, animationButton.duration)
+            }
         }
     }
 
