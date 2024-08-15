@@ -5,25 +5,33 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import androidx.annotation.RequiresApi
 
 object VibroController {
-    fun vibroEmulateDevice(context: Context, duration: Long) {
-        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+    private fun getVibrator(context: Context): Vibrator {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager =
                 context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
         } else {
             context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun vibroEmulateDevice(context: Context, duration: Long) {
+        val vibrator = getVibrator(context)
 
         if (vibrator.hasVibrator()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                vibrator.vibrate(
-                    VibrationEffect.createOneShot(
-                        duration,
-                        VibrationEffect.DEFAULT_AMPLITUDE
-                    )
-                )
+            val vibrationEffect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE)
+            } else {
+                @Suppress("DEPRECATION")
+                null
+            }
+
+            if (vibrationEffect != null) {
+                vibrator.vibrate(vibrationEffect)
             } else {
                 @Suppress("DEPRECATION")
                 vibrator.vibrate(duration)
@@ -32,13 +40,6 @@ object VibroController {
     }
 
     fun vibroEmulateOff(context: Context) {
-        val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
-        vibrator.cancel()
+        getVibrator(context).cancel()
     }
 }
