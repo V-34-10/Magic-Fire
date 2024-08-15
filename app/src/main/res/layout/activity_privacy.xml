@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_menu"
-    tools:context=".PrivacyActivity">
+    tools:context=".view.privacy.PrivacyActivity">
 
     <TextView
         android:id="@+id/text_privacy"

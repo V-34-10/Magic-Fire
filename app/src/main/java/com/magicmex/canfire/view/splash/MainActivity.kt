@@ -1,4 +1,4 @@
-package com.magicmex.canfire
+package com.magicmex.canfire.view.splash
 
 import android.animation.ValueAnimator
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.databinding.ActivityMainBinding
+import com.magicmex.canfire.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }

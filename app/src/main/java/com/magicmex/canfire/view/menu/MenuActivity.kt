@@ -1,32 +1,33 @@
-package com.magicmex.canfire
+package com.magicmex.canfire.view.menu
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.magicmex.canfire.databinding.ActivityLevelsBinding
+import com.magicmex.canfire.view.games.GamesActivity
+import com.magicmex.canfire.R
+import com.magicmex.canfire.databinding.ActivityMenuBinding
+import com.magicmex.canfire.view.privacy.PrivacyActivity
+import com.magicmex.canfire.view.settings.SettingsActivity
 
-class LevelsActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityLevelsBinding.inflate(layoutInflater) }
-    private lateinit var preferences: SharedPreferences
+class MenuActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        preferences = getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
-        choiceLevelsGameButton()
+        controlBarMenuButton()
     }
 
-    private fun choiceLevelsGameButton() {
+    private fun controlBarMenuButton() {
         val animationButton = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
 
         binding.apply {
-            setupLevelsGameButton(buttonLevelFirst, R.string.button_level_first, animationButton)
-            setupLevelsGameButton(buttonLevelSecond, R.string.button_level_second, animationButton)
-            setupLevelsGameButton(buttonLevelThree, R.string.button_level_three, animationButton)
+            setupButton(buttonGames, GamesActivity::class.java, animationButton)
+            setupButton(buttonSettings, SettingsActivity::class.java, animationButton)
+            setupButton(buttonPrivacy, PrivacyActivity::class.java, animationButton)
             textExit.setOnClickListener {
                 it.startAnimation(animationButton)
                 it.postDelayed({ finishAffinity() }, animationButton.duration)
@@ -34,11 +35,14 @@ class LevelsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLevelsGameButton(button: View, gameNameResId: Int, animation: Animation) {
+    private fun <T : AppCompatActivity> setupButton(
+        button: View,
+        activityClass: Class<T>,
+        animation: Animation
+    ) {
         button.setOnClickListener {
             it.startAnimation(animation)
-            preferences.edit().putString("LevelGame", getString(gameNameResId)).apply()
-            startActivity(Intent(this@LevelsActivity, SceneActivity::class.java))
+            startActivity(Intent(this@MenuActivity, activityClass))
         }
     }
 

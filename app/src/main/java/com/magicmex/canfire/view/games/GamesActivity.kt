@@ -1,4 +1,4 @@
-package com.magicmex.canfire
+package com.magicmex.canfire.view.games
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,7 +7,9 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityGamesBinding
+import com.magicmex.canfire.view.level.LevelsActivity
 
 class GamesActivity : AppCompatActivity() {
     private val binding by lazy { ActivityGamesBinding.inflate(layoutInflater) }
