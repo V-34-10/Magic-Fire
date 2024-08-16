@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_keno_game"
-    tools:context=".view.games.KenoGameFragment">
+    tools:context=".view.games.kenogame.KenoGameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/control_bar_game"
