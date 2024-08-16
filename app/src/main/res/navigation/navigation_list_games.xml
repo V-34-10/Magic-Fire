@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/keno_game"
-        android:name="com.magicmex.canfire.view.games.KenoGameFragment"
+        android:name="com.magicmex.canfire.view.games.kenogame.KenoGameFragment"
         android:label="@string/button_game_first"
         tools:layout="@layout/fragment_keno_game" />
 
     <fragment
         android:id="@+id/find_pair_game"
-        android:name="com.magicmex.canfire.view.games.FindPairGameFragment"
+        android:name="com.magicmex.canfire.view.games.findgame.FindPairGameFragment"
         android:label="@string/button_game_second"
         tools:layout="@layout/fragment_find_pair_game" />
 
