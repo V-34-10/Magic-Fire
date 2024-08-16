@@ -3,10 +3,12 @@ package com.magicmex.canfire.view.settings
 import android.content.Context
 import android.content.SharedPreferences
 import android.media.AudioManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.view.settings.VibroController.vibroEmulateDevice
@@ -21,6 +23,7 @@ class SettingsActivity : AppCompatActivity() {
     private var statusVibro: Boolean = false
     private var statusMusic: Boolean = false
     private lateinit var musicController: MusicController
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -30,6 +33,7 @@ class SettingsActivity : AppCompatActivity() {
         buttonsControls()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun buttonsControls() {
         statusVibro = preferences.getBoolean("vibroStatus", false)
         statusMusic = preferences.getBoolean("musicStatus", false)
@@ -73,6 +77,7 @@ class SettingsActivity : AppCompatActivity() {
         managerMusic.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun vibroMode() {
         val isVibration = preferences.getBoolean("vibroStatus", false)
         if (isVibration) {

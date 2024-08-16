@@ -1,6 +1,7 @@
 package com.magicmex.canfire.view.settings
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
@@ -54,6 +55,19 @@ class MusicController(private val context: Context) {
             if (it.isPlaying) it.stop()
             it.release()
             mediaPlayers.remove(soundResId)
+        }
+    }
+}
+
+object MusicStart {
+    fun musicStartMode(
+        sourceMusic: Int,
+        managerMusic: MusicController,
+        preferences: SharedPreferences
+    ) {
+        val statusMusic = preferences.getBoolean("musicStatus", false)
+        if (statusMusic) {
+            managerMusic.apply { playSound(sourceMusic, true) }
         }
     }
 }
