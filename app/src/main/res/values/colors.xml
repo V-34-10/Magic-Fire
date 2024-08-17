@@ -7,5 +7,7 @@
     <color name="yellow_light">#FFD600</color>
     <color name="orange">#FF7A00</color>
     <color name="purple_light">#FA00FF</color>
+    <color name="yellow_winning">#FFFF00</color>
+    <color name="purple_default">#53007A</color>
 
 </resources>

@@ -36,4 +36,5 @@
     <string name="wins_level_first">0</string>
     <string name="time_level_first">00:00</string>
     <string name="find_pair_item">find pair item</string>
+    <string name="default_number_keno">1</string>
 </resources>
