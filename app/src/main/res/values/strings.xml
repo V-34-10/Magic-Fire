@@ -39,5 +39,6 @@
     <string name="default_number_keno">1</string>
     <string name="toast_win">Congratulations, you won!</string>
     <string name="toast_lose">Try again, you\'ve lost!</string>
+    <string name="btn_privacy">btn_privacy</string>
 
 </resources>
