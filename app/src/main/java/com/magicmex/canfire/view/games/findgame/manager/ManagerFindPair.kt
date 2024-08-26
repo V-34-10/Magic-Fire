@@ -6,9 +6,11 @@ import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.magicmex.canfire.R
 import com.magicmex.canfire.adapter.FindPairAdapter
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
 import com.magicmex.canfire.model.FindPair
@@ -55,7 +57,7 @@ object ManagerFindPair {
         insertPairItems()
 
         adapterPair.onFindPairClick = { cardItem, position ->
-            handlePairClick(cardItem, position, binding)
+            handlePairClick(cardItem, position, binding, context)
         }
     }
 
@@ -83,7 +85,8 @@ object ManagerFindPair {
     private fun handlePairClick(
         pairItem: FindPair,
         position: Int,
-        binding: ViewBinding
+        binding: ViewBinding,
+        context: Context
     ) {
         if (flippingPair || pairItem.flip || pairItem.match) return
 
@@ -102,7 +105,7 @@ object ManagerFindPair {
                 secondPair = pairItem
                 flippingPair = true
                 Handler(Looper.getMainLooper()).postDelayed({
-                    checkMatchPair()
+                    checkMatchPair(context)
                     updateTextStepPair(binding)
                 }, delay)
             }
@@ -126,7 +129,7 @@ object ManagerFindPair {
         elapsedTime = 0
     }
 
-    private fun checkMatchPair() {
+    private fun checkMatchPair(context: Context) {
         val firstPos = firstPair?.pos ?: -1
         val secondPos = secondPair?.pos ?: -1
 
@@ -147,6 +150,7 @@ object ManagerFindPair {
 
         if (checkGameOver()) {
             saveBestStatsFindGame()
+            showWinMessage(context)
         }
     }
 
@@ -174,6 +178,10 @@ object ManagerFindPair {
         when (binding) {
             is FragmentFindPairGameBinding -> binding.textSteps.text = stepSearchPair.toString()
         }
+    }
+
+    private fun showWinMessage(context: Context) {
+        Toast.makeText(context, R.string.toast_win, Toast.LENGTH_SHORT).show()
     }
 
     private fun saveBestStatsFindGame() {
