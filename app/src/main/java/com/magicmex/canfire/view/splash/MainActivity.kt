@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private fun getDisplayMetrics(): Int {
         val displayMetrics = resources.displayMetrics
         displayMetrics.widthPixels
-        val progressBarWidth = (250 * displayMetrics.density).toInt()
+        val progressBarWidth = (350 * displayMetrics.density).toInt()
         return progressBarWidth - 10
     }
 
