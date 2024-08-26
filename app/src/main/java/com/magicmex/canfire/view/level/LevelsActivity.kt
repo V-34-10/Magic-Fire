@@ -41,6 +41,7 @@ class LevelsActivity : AppCompatActivity() {
             it.startAnimation(animation)
             preferences.edit().putString("LevelGame", getString(gameNameResId)).apply()
             startActivity(Intent(this@LevelsActivity, SceneActivity::class.java))
+            finish()
         }
     }
 
