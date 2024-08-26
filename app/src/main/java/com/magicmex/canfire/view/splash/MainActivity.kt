@@ -5,8 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.magicmex.canfire.databinding.ActivityMainBinding
 import com.magicmex.canfire.view.welcome.WelcomeActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -14,9 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        navigateToWelcomeAndLoadingBar()
-        startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-        finish()
+        navigateToWelcome()
     }
 
     private fun getDisplayMetrics(): Int {
@@ -26,7 +27,16 @@ class MainActivity : AppCompatActivity() {
         return progressBarWidth - 10
     }
 
-    private fun navigateToWelcomeAndLoadingBar() {
+    private fun navigateToWelcome(){
+        loadingBar()
+        lifecycleScope.launch {
+            delay( 3000L)
+            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun loadingBar() {
         val maxAnimationWidth = getDisplayMetrics()
         val layoutParams = binding.loadingBar.loadingLine.layoutParams
 
