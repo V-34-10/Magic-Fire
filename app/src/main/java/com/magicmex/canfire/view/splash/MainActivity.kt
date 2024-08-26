@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         navigateToWelcomeAndLoadingBar()
+        startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+        finish()
     }
 
     private fun getDisplayMetrics(): Int {
@@ -37,9 +39,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         animation.start()
-
-        startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-        finish()
     }
 
     @Deprecated("Deprecated in Java")
