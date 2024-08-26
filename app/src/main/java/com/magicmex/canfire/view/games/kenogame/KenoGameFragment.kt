@@ -1,6 +1,7 @@
 package com.magicmex.canfire.view.games.kenogame
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.magicmex.canfire.databinding.FragmentKenoGameBinding
 import com.magicmex.canfire.model.KenoGame
 import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
+import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.settings.MusicController
 import com.magicmex.canfire.view.settings.MusicStart
 
@@ -153,12 +155,18 @@ class KenoGameFragment : Fragment() {
         var animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
         binding.btnClaim.setOnClickListener {
             it.startAnimation(animationButton)
-
+            startKenoGame()
         }
         binding.btnHighScore.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
             DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext())
+        }
+        binding.btnChange.setOnClickListener {
+            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
+            it.startAnimation(animationButton)
+            startActivity(Intent(context, LevelsActivity::class.java))
+            activity?.finish()
         }
     }
 

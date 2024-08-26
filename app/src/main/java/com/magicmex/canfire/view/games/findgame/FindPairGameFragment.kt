@@ -1,5 +1,6 @@
 package com.magicmex.canfire.view.games.findgame
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
 import com.magicmex.canfire.view.games.findgame.dialog.DialogFragmentsHighScoreFindPair
 import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.findgame.manager.ManagerFindPair
+import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.settings.MusicController
 import com.magicmex.canfire.view.settings.MusicStart
 
@@ -71,6 +73,12 @@ class FindPairGameFragment : Fragment() {
             it.startAnimation(animationButton)
             ManagerFindPair.resetFindPairGame(binding)
             DialogFragmentsHighScoreFindPair.runDialogFindPairGame(requireContext())
+        }
+        binding.btnChange.setOnClickListener {
+            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
+            it.startAnimation(animationButton)
+            startActivity(Intent(context, LevelsActivity::class.java))
+            activity?.finish()
         }
     }
 
