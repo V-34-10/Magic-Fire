@@ -40,7 +40,7 @@ class SettingsActivity : AppCompatActivity() {
         val animationClick = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
         binding.buttonResetScore.setOnClickListener {
             it.startAnimation(animationClick)
-            Toast.makeText(applicationContext, "Total reset score", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT).show()
         }
         binding.buttonMusicOn.setOnClickListener {
             it.startAnimation(animationClick)
