@@ -16,7 +16,6 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.adapter.KenoGameAdapter
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
 import com.magicmex.canfire.model.KenoGame
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
 import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.settings.MusicController
@@ -154,6 +153,11 @@ class KenoGameFragment : Fragment() {
     private fun initControlBarKenoGame() {
         var animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
         binding.btnClaim.setOnClickListener {
+            it.startAnimation(animationButton)
+            startKenoGame()
+        }
+        binding.btnRestart.setOnClickListener {
+            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
             startKenoGame()
         }
