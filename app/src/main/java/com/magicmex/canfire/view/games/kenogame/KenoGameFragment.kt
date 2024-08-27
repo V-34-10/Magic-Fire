@@ -103,7 +103,7 @@ class KenoGameFragment : Fragment() {
 
     private fun updateSelectedNumbersText() {
         val selectedText = if (selectedNumbers.isEmpty()) {
-            getString(R.string.text_default_choice)
+            getString(R.string.text_default_choice_second)
         } else {
             selectedNumbers.joinToString(" ") { it.index.toString() }
         }
@@ -164,7 +164,7 @@ class KenoGameFragment : Fragment() {
         binding.btnHighScore.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
-            DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext())
+            DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext(), preferences)
         }
         binding.btnChange.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
