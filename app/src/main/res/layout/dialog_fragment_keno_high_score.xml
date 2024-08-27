@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/score"
+        android:id="@+id/scoreKeno"
         android:layout_width="650dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_high_score_keno_game_dialog"
