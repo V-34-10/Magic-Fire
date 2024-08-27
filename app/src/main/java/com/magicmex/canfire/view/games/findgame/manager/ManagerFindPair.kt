@@ -14,8 +14,8 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.adapter.FindPairAdapter
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
 import com.magicmex.canfire.model.FindPair
-import com.magicmex.canfire.view.games.findgame.dialog.HighScoreManager
-import com.magicmex.canfire.view.games.findgame.dialog.HighScoreManager.statsHighScore
+import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager
+import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.statsHighScoreFindPair
 
 object ManagerFindPair {
     private var delay = 1000L
@@ -185,7 +185,7 @@ object ManagerFindPair {
     }
 
     private fun saveBestStatsFindGame() {
-        val levelStats = statsHighScore[selectedLevelPairGame]!!
+        val levelStats = statsHighScoreFindPair[selectedLevelPairGame]!!
 
         if (elapsedTime < levelStats.bestTime) {
             levelStats.bestTime = elapsedTime
@@ -194,7 +194,7 @@ object ManagerFindPair {
             levelStats.bestSteps = stepSearchPair
         }
 
-        HighScoreManager.saveStatsScoreFindPairGame(preferences)
+        HighScoreFindPairManager.saveStatsScoreFindPairGame(preferences)
         stepSearchPair = 0
     }
 

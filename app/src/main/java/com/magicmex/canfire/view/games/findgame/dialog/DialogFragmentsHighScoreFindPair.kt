@@ -11,14 +11,14 @@ import android.view.Window
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.magicmex.canfire.R
-import com.magicmex.canfire.view.games.findgame.dialog.HighScoreManager.loadScoreFindPairGame
+import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.loadScoreFindPairGame
 
 object DialogFragmentsHighScoreFindPair {
 
     private fun initScoreFindPairGame(preferences: SharedPreferences, dialogView: View) {
         loadScoreFindPairGame(preferences)
 
-        val stats = HighScoreManager.statsHighScore
+        val stats = HighScoreFindPairManager.statsHighScoreFindPair
 
         val easyStats = stats["Level 1"]!!
         val mediumStats = stats["Level 2"]!!
