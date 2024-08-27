@@ -72,7 +72,7 @@ class FindPairGameFragment : Fragment() {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
             ManagerFindPair.resetFindPairGame(binding)
-            DialogFragmentsHighScoreFindPair.runDialogFindPairGame(requireContext())
+            DialogFragmentsHighScoreFindPair.runDialogFindPairGame(requireContext(),preferences)
         }
         binding.btnChange.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
