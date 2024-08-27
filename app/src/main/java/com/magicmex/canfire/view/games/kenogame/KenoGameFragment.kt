@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.magicmex.canfire.adapter.KenoGameAdapter
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
 import com.magicmex.canfire.model.KenoGame
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
+import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager
 import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.settings.MusicController
 import com.magicmex.canfire.view.settings.MusicStart
@@ -29,6 +31,9 @@ class KenoGameFragment : Fragment() {
     private val selectedNumbers = mutableListOf<KenoGame>()
     private val winningNumbers = mutableListOf<KenoGame>()
     private var levelKenoGame: String = ""
+    private var timer: CountDownTimer? = null
+    private var elapsedTime: Long = 0
+    private var gameStarted = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +63,7 @@ class KenoGameFragment : Fragment() {
 
         initRecyclerScene()
         initControlBarKenoGame()
+        startTimer()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -141,12 +147,22 @@ class KenoGameFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun checkWinningCondition() {
-        val isWin = selectedNumbers.any { winningNumbers.contains(it) }
+        val isWin = selectedNumbers.any { selected ->
+            winningNumbers.any { it.index == selected.index }
+        }
+        val stats = HighScoreKenoManager.statsHighScoreKeno[levelKenoGame] ?: return
+
+        stats.countAllGamesPlayed++
+
         if (isWin) {
             Toast.makeText(context, R.string.toast_win, Toast.LENGTH_SHORT).show()
+            stats.countWins++
         } else {
             Toast.makeText(context, R.string.toast_lose, Toast.LENGTH_SHORT).show()
+            stats.countLosses++
         }
+
+        HighScoreKenoManager.saveStatsScoreKenoGame(preferences)
         kenoGameAdapter.notifyDataSetChanged()
     }
 
@@ -159,7 +175,7 @@ class KenoGameFragment : Fragment() {
         binding.btnRestart.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
-            startKenoGame()
+            restartGame()
         }
         binding.btnHighScore.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
@@ -172,6 +188,37 @@ class KenoGameFragment : Fragment() {
             startActivity(Intent(context, LevelsActivity::class.java))
             activity?.finish()
         }
+    }
+
+    private fun startTimer() {
+        timer?.cancel()
+        elapsedTime = 0
+        gameStarted = true
+
+        timer = object : CountDownTimer(Long.MAX_VALUE, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                elapsedTime += 1000L
+                updateTimerUI()
+            }
+
+            override fun onFinish() {}
+        }.start()
+    }
+
+    private fun updateTimerUI() {
+        binding.textTime.text = String.format("%02d:%02d", (elapsedTime / 1000) / 60, (elapsedTime / 1000) % 60)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun restartGame() {
+        timer?.cancel()
+        selectedNumbers.clear()
+        winningNumbers.clear()
+        kenoGameAdapter.notifyDataSetChanged()
+        updateSelectedNumbersText()
+        binding.textWinCombination.text = ""
+        binding.textTime.text = getString(R.string.text_default_time)
+        startTimer()
     }
 
     override fun onResume() {
