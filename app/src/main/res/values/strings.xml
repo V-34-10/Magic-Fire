@@ -32,6 +32,7 @@
     <string name="btn_high_score">btn_high_score</string>
     <string name="btn_change">btn_change</string>
     <string name="text_default_choice">Your choice\n1 12 16 32 34</string>
+    <string name="text_default_choice_second">Your choice\n</string>
     <string name="text_default_win_combination"> 1  12    14\n8  28  32 </string>
 
     <string name="win_rate_level_first">0%</string>
