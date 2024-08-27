@@ -91,7 +91,7 @@ object ManagerFindPair {
         if (flippingPair || pairItem.flip || pairItem.match) return
 
         if (!gameStarted) {
-            startTimer()
+            startTimer(binding)
             gameStarted = true
         }
 
@@ -112,21 +112,33 @@ object ManagerFindPair {
         }
     }
 
-    private fun startTimer() {
+    private fun startTimer(binding: ViewBinding) {
         startTime = System.currentTimeMillis()
         timer = object : CountDownTimer(Long.MAX_VALUE, delay) {
             override fun onTick(millisUntilFinished: Long) {
                 elapsedTime = System.currentTimeMillis() - startTime
+                updateTimeText(binding)
             }
 
             override fun onFinish() {}
         }.start()
     }
 
-    private fun stopTimer() {
+    private fun stopTimer(binding: ViewBinding) {
         timer?.cancel()
         startTime = 0
         elapsedTime = 0
+        updateTimeText(binding)
+    }
+
+    private fun updateTimeText(binding: ViewBinding) {
+        when (binding) {
+            is FragmentFindPairGameBinding -> binding.textTime.text = String.format(
+                "%02d:%02d",
+                (elapsedTime / 1000 / 60).toInt(),
+                (elapsedTime / 1000 % 60).toInt()
+            )
+        }
     }
 
     private fun checkMatchPair(context: Context) {
@@ -171,7 +183,7 @@ object ManagerFindPair {
         stepSearchPair = 0
         updateTextStepPair(binding)
         gameStarted = false
-        stopTimer()
+        stopTimer(binding)
     }
 
     private fun updateTextStepPair(binding: ViewBinding) {
