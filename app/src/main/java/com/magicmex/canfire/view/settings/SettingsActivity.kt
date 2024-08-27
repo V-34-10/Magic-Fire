@@ -14,6 +14,8 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.view.settings.VibroController.vibroEmulateDevice
 import com.magicmex.canfire.view.settings.VibroController.vibroEmulateOff
 import com.magicmex.canfire.databinding.ActivitySettingsBinding
+import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
+import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
@@ -23,6 +25,7 @@ class SettingsActivity : AppCompatActivity() {
     private var statusVibro: Boolean = false
     private var statusMusic: Boolean = false
     private lateinit var musicController: MusicController
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.buttonResetScore.setOnClickListener {
             it.startAnimation(animationClick)
             Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT).show()
+            resetStatsScoreFindPairGame(preferences)
+            resetStatsScoreKenoGame(preferences)
         }
         binding.buttonMusicOn.setOnClickListener {
             it.startAnimation(animationClick)
