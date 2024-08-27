@@ -6,11 +6,13 @@
 
     <string name="btn_settings">btn_settings</string>
     <string name="button_games">button_games</string>
+
     <string name="button_game_first">KenoGame</string>
     <string name="button_game_second">FindPairGame</string>
-    <string name="button_level_second">button level second</string>
-    <string name="button_level_three">button level three</string>
-    <string name="button_level_first">button level first</string>
+
+    <string name="button_level_first">Level 1</string>
+    <string name="button_level_second">Level 2</string>
+    <string name="button_level_three">Level 3</string>
 
     <string name="text_title_settings">Settings</string>
     <string name="btn_music_on">btn_music_on</string>
