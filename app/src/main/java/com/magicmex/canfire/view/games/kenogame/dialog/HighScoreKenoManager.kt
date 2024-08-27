@@ -28,4 +28,13 @@ object HighScoreKenoManager {
             stats.countLosses = sharedPref.getInt("${level}_losses", 0)
         }
     }
+
+    fun resetStatsScoreKenoGame(preferences: SharedPreferences) {
+        for ((_, stats) in statsHighScoreKeno) {
+            stats.countAllGamesPlayed = 0
+            stats.countWins = 0
+            stats.countLosses = 0
+        }
+        saveStatsScoreKenoGame(preferences)
+    }
 }

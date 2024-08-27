@@ -26,4 +26,12 @@ object HighScoreFindPairManager {
             stats.bestSteps = sharedPref.getInt("${level}bestSteps", 0)
         }
     }
+
+    fun resetStatsScoreFindPairGame(preferences: SharedPreferences) {
+        for ((_, stats) in statsHighScoreFindPair) {
+            stats.bestTime = 0
+            stats.bestSteps = 0
+        }
+        saveStatsScoreFindPairGame(preferences)
+    }
 }
