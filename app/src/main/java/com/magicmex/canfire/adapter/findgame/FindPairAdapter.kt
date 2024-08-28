@@ -3,6 +3,7 @@ package com.magicmex.canfire.adapter.findgame
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,18 +23,8 @@ class FindPairAdapter(
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.find_pair_item, parent, false)
 
-        val cardSize = when (levelGame) {
-            "Level 2" -> 60.dpConvertToPx(parent.context)
-            "Level 3" -> 50.dpConvertToPx(parent.context)
-            else -> 70.dpConvertToPx(parent.context)
-        }
-
-        itemView.findViewById<ImageView>(R.id.find_card_item).apply {
-            layoutParams = layoutParams.apply {
-                width = cardSize
-                height = cardSize
-            }
-        }
+        val cardSize = calculateCardSize(parent.context, levelGame)
+        adjustItemViewSize(itemView, cardSize)
 
         return FindPairViewHolder(itemView)
     }
@@ -50,6 +41,23 @@ class FindPairAdapter(
     }
 
     override fun getItemCount(): Int = pairFindList.size
+
+    private fun calculateCardSize(context: Context, levelGame: String): Int {
+        return when (levelGame) {
+            "Level 2" -> 60
+            "Level 3" -> 50
+            else -> 70
+        }.dpConvertToPx(context)
+    }
+
+    private fun adjustItemViewSize(itemView: View, size: Int) {
+        itemView.findViewById<ImageView>(R.id.find_card_item).apply {
+            layoutParams = layoutParams.apply {
+                width = size
+                height = size
+            }
+        }
+    }
 
     private fun Int.dpConvertToPx(context: Context): Int =
         (this * context.resources.displayMetrics.density).toInt()
