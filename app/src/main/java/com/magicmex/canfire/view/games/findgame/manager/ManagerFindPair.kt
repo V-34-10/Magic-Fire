@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.magicmex.canfire.R
-import com.magicmex.canfire.adapter.FindPairAdapter
+import com.magicmex.canfire.adapter.findgame.FindPairAdapter
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
-import com.magicmex.canfire.model.FindPair
+import com.magicmex.canfire.model.findgame.FindPair
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.statsHighScoreFindPair
 

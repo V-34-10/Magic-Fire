@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.magicmex.canfire.R
-import com.magicmex.canfire.adapter.KenoGameAdapter
+import com.magicmex.canfire.adapter.kenogame.KenoGameAdapter
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
-import com.magicmex.canfire.model.KenoGame
+import com.magicmex.canfire.model.kenogame.KenoGame
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager
 import com.magicmex.canfire.view.level.LevelsActivity

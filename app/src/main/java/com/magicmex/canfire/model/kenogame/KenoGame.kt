@@ -1,4 +1,4 @@
-package com.magicmex.canfire.model
+package com.magicmex.canfire.model.kenogame
 
 data class KenoGame(
     val index: Int,

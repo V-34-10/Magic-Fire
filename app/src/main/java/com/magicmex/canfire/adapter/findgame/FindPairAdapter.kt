@@ -1,4 +1,4 @@
-package com.magicmex.canfire.adapter
+package com.magicmex.canfire.adapter.findgame
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.magicmex.canfire.R
-import com.magicmex.canfire.model.FindPair
+import com.magicmex.canfire.model.findgame.FindPair
 
 class FindPairAdapter(
     private val pairFindList: List<FindPair>,

@@ -1,7 +1,7 @@
 package com.magicmex.canfire.view.games.kenogame.dialog
 
 import android.content.SharedPreferences
-import com.magicmex.canfire.model.HighScoreKeno
+import com.magicmex.canfire.model.kenogame.HighScoreKeno
 
 object HighScoreKenoManager {
 

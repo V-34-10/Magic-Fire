@@ -1,4 +1,4 @@
-package com.magicmex.canfire.adapter
+package com.magicmex.canfire.adapter.kenogame
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.magicmex.canfire.R
-import com.magicmex.canfire.model.KenoGame
+import com.magicmex.canfire.model.kenogame.KenoGame
 
 class KenoGameAdapter(
     private val kenoNumbers: List<KenoGame>,

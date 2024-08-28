@@ -11,7 +11,7 @@ import android.view.Window
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.magicmex.canfire.R
-import com.magicmex.canfire.model.HighScoreKeno
+import com.magicmex.canfire.model.kenogame.HighScoreKeno
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager.loadScoreKenoGame
 
 object DialogFragmentsHighScoreKeno {

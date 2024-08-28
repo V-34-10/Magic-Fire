@@ -1,4 +1,4 @@
-package com.magicmex.canfire.model
+package com.magicmex.canfire.model.findgame
 
 data class FindPair(
     val img: Int,

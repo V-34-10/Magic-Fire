@@ -1,7 +1,7 @@
 package com.magicmex.canfire.view.games.findgame.dialog
 
 import android.content.SharedPreferences
-import com.magicmex.canfire.model.HighScoreFindPair
+import com.magicmex.canfire.model.findgame.HighScoreFindPair
 
 object HighScoreFindPairManager {
 

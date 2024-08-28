@@ -1,4 +1,4 @@
-package com.magicmex.canfire.adapter
+package com.magicmex.canfire.adapter.findgame
 
 import android.view.View
 import android.widget.ImageView

@@ -1,4 +1,4 @@
-package com.magicmex.canfire.model
+package com.magicmex.canfire.model.findgame
 
 data class HighScoreFindPair(
     var bestTime: Long = Long.MAX_VALUE,
