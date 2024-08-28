@@ -11,7 +11,7 @@
         android:id="@+id/text_title_settings"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/galada"
         android:shadowColor="@color/white"
         android:shadowDx="-7"
@@ -45,8 +45,8 @@
 
     <ImageView
         android:id="@+id/button_music_on"
-        android:layout_width="130dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:layout_marginStart="50dp"
         android:background="@drawable/btn_music_on"
         android:clickable="true"
@@ -57,8 +57,8 @@
 
     <ImageView
         android:id="@+id/button_music_off"
-        android:layout_width="130dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/btn_music_off"
         android:clickable="true"
@@ -87,8 +87,8 @@
 
     <ImageView
         android:id="@+id/button_vibro_on"
-        android:layout_width="130dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:layout_marginStart="50dp"
         android:background="@drawable/btn_vibro_on"
         android:clickable="true"
@@ -99,8 +99,8 @@
 
     <ImageView
         android:id="@+id/button_vibro_off"
-        android:layout_width="130dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/btn_vibro_off"
         android:clickable="true"
@@ -113,7 +113,7 @@
         android:id="@+id/button_reset_score"
         android:layout_width="300dp"
         android:layout_height="90dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/btn_reset_score"
         android:clickable="true"
         android:contentDescription="@string/btn_reset_score"
