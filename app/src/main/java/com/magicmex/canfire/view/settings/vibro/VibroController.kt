@@ -1,4 +1,4 @@
-package com.magicmex.canfire.view.settings
+package com.magicmex.canfire.view.settings.vibro
 
 import android.content.Context
 import android.os.Build

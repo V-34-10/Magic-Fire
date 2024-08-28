@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
@@ -15,8 +14,8 @@ import com.magicmex.canfire.view.games.findgame.dialog.DialogFragmentsHighScoreF
 import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.findgame.manager.ManagerFindPair
 import com.magicmex.canfire.view.level.LevelsActivity
-import com.magicmex.canfire.view.settings.MusicController
-import com.magicmex.canfire.view.settings.MusicStart
+import com.magicmex.canfire.view.settings.music.MusicController
+import com.magicmex.canfire.view.settings.music.MusicStart
 
 class FindPairGameFragment : Fragment() {
     private lateinit var binding: FragmentFindPairGameBinding

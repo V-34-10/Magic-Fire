@@ -15,8 +15,8 @@ import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreK
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno.initRecyclerKenoScene
 import com.magicmex.canfire.view.level.LevelsActivity
-import com.magicmex.canfire.view.settings.MusicController
-import com.magicmex.canfire.view.settings.MusicStart
+import com.magicmex.canfire.view.settings.music.MusicController
+import com.magicmex.canfire.view.settings.music.MusicStart
 
 class KenoGameFragment : Fragment() {
     private lateinit var binding: FragmentKenoGameBinding

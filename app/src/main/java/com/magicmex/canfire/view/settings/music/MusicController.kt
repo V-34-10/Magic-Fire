@@ -1,4 +1,4 @@
-package com.magicmex.canfire.view.settings
+package com.magicmex.canfire.view.settings.music
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -15,8 +15,9 @@ import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.
 import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
 import com.magicmex.canfire.view.navigation.NavigationManager
-import com.magicmex.canfire.view.settings.VibroController.vibroEmulateDevice
-import com.magicmex.canfire.view.settings.VibroController.vibroEmulateOff
+import com.magicmex.canfire.view.settings.vibro.VibroController.vibroEmulateDevice
+import com.magicmex.canfire.view.settings.vibro.VibroController.vibroEmulateOff
+import com.magicmex.canfire.view.settings.music.MusicController
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
