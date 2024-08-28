@@ -32,15 +32,13 @@ class KenoGameAdapter(
 
         holder.textNumber.text = number.index.toString()
 
-        holder.defaultOverlay.setBackgroundResource(R.drawable.keno_background_default)
-
-        if (selectedNumbers.contains(number)) {
-            holder.defaultOverlay.setBackgroundResource(R.drawable.keno_selected_background_default)
-        }
-
-        if (winningNumbers.contains(number)) {
-            holder.defaultOverlay.setBackgroundResource(R.drawable.keno_selected_win_background)
-        }
+        holder.defaultOverlay.setBackgroundResource(
+            when {
+                winningNumbers.contains(number) -> R.drawable.keno_selected_win_background
+                selectedNumbers.contains(number) -> R.drawable.keno_selected_background_default
+                else -> R.drawable.keno_background_default
+            }
+        )
 
         holder.itemView.setOnClickListener {
             onItemClickListener(number)
