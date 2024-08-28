@@ -17,6 +17,7 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.adapter.kenogame.KenoGameAdapter
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
 import com.magicmex.canfire.model.kenogame.KenoGame
+import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager
 import com.magicmex.canfire.view.level.LevelsActivity
@@ -25,7 +26,7 @@ import com.magicmex.canfire.view.settings.MusicStart
 
 class KenoGameFragment : Fragment() {
     private lateinit var binding: FragmentKenoGameBinding
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesApp: SharedPreferences
     private lateinit var controllerMusic: MusicController
     private lateinit var kenoGameAdapter: KenoGameAdapter
     private val selectedNumbers = mutableListOf<KenoGame>()
@@ -41,20 +42,16 @@ class KenoGameFragment : Fragment() {
         binding = FragmentKenoGameBinding.inflate(layoutInflater, container, false)
 
         controllerMusic = context?.let { MusicController(it) }!!
-        preferences =
-            requireActivity().getSharedPreferences(
-                "MagicMexicanFirePref",
-                AppCompatActivity.MODE_PRIVATE
-            )
+        preferencesApp = GameSettings.getPreference(requireContext())
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MusicStart.musicStartMode(R.raw.music_keno, controllerMusic, preferences)
+        MusicStart.musicStartMode(R.raw.music_keno, controllerMusic, preferencesApp)
 
-        levelKenoGame = preferences.getString("LevelGame", "").toString()
+        levelKenoGame = preferencesApp.getString("LevelGame", "").toString()
         when (levelKenoGame) {
             "Level 1" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_first_keno)
             "Level 2" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_second_keno)
@@ -163,7 +160,7 @@ class KenoGameFragment : Fragment() {
             stats.countLosses++
         }
 
-        HighScoreKenoManager.saveStatsScoreKenoGame(preferences)
+        HighScoreKenoManager.saveStatsScoreKenoGame(preferencesApp)
         kenoGameAdapter.notifyDataSetChanged()
     }
 
@@ -181,7 +178,7 @@ class KenoGameFragment : Fragment() {
         binding.btnHighScore.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
-            DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext(), preferences)
+            DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext(), preferencesApp)
         }
         binding.btnChange.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)

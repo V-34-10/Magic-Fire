@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivitySettingsBinding
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
+import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
 import com.magicmex.canfire.view.navigation.NavigationManager
 import com.magicmex.canfire.view.settings.VibroController.vibroEmulateDevice
@@ -19,7 +20,7 @@ import com.magicmex.canfire.view.settings.VibroController.vibroEmulateOff
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesApp: SharedPreferences
     private val managerMusic by lazy { getSystemService(Context.AUDIO_SERVICE) as AudioManager }
     private var defaultMusicVolume: Int = 25
     private var statusVibro: Boolean = false
@@ -32,42 +33,42 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
         musicController = MusicController(this)
-        preferences = getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
+        preferencesApp = GameSettings.getPreference(this)
         buttonsControls()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun buttonsControls() {
-        statusVibro = preferences.getBoolean("vibroStatus", false)
-        statusMusic = preferences.getBoolean("musicStatus", false)
+        statusVibro = preferencesApp.getBoolean("vibroStatus", false)
+        statusMusic = preferencesApp.getBoolean("musicStatus", false)
         val animationClick = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
         binding.buttonResetScore.setOnClickListener {
             it.startAnimation(animationClick)
             Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT).show()
-            resetStatsScoreFindPairGame(preferences)
-            resetStatsScoreKenoGame(preferences)
+            resetStatsScoreFindPairGame(preferencesApp)
+            resetStatsScoreKenoGame(preferencesApp)
         }
         binding.buttonMusicOn.setOnClickListener {
             it.startAnimation(animationClick)
             onMusic()
-            preferences.edit().putBoolean("musicStatus", true).apply()
+            preferencesApp.edit().putBoolean("musicStatus", true).apply()
             vibroMode()
         }
         binding.buttonMusicOff.setOnClickListener {
             it.startAnimation(animationClick)
             offMusic()
-            preferences.edit().putBoolean("musicStatus", false).apply()
+            preferencesApp.edit().putBoolean("musicStatus", false).apply()
             vibroMode()
         }
         binding.buttonVibroOn.setOnClickListener {
             it.startAnimation(animationClick)
-            preferences.edit().putBoolean("vibroStatus", true).apply()
+            preferencesApp.edit().putBoolean("vibroStatus", true).apply()
             vibroMode()
         }
         binding.buttonVibroOff.setOnClickListener {
             it.startAnimation(animationClick)
             vibroEmulateOff(this)
-            preferences.edit().putBoolean("vibroStatus", false).apply()
+            preferencesApp.edit().putBoolean("vibroStatus", false).apply()
             vibroMode()
         }
     }
@@ -82,7 +83,7 @@ class SettingsActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun vibroMode() {
-        val isVibration = preferences.getBoolean("vibroStatus", false)
+        val isVibration = preferencesApp.getBoolean("vibroStatus", false)
         if (isVibration) {
             vibroEmulateDevice(this, 500)
         }

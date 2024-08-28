@@ -10,16 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.view.games.SceneActivity
 import com.magicmex.canfire.databinding.ActivityLevelsBinding
+import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.navigation.NavigationManager
 
 class LevelsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLevelsBinding.inflate(layoutInflater) }
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesApp: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferences = getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
+        preferencesApp = GameSettings.getPreference(this)
         choiceLevelsGameButton()
     }
 
@@ -40,7 +41,7 @@ class LevelsActivity : AppCompatActivity() {
     private fun setupLevelsGameButton(button: View, gameNameResId: Int, animation: Animation) {
         button.setOnClickListener {
             it.startAnimation(animation)
-            preferences.edit().putString("LevelGame", getString(gameNameResId)).apply()
+            preferencesApp.edit().putString("LevelGame", getString(gameNameResId)).apply()
             startActivity(Intent(this@LevelsActivity, SceneActivity::class.java))
             finish()
         }

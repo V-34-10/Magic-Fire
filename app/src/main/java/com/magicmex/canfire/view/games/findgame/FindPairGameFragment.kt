@@ -20,7 +20,7 @@ import com.magicmex.canfire.view.settings.MusicStart
 
 class FindPairGameFragment : Fragment() {
     private lateinit var binding: FragmentFindPairGameBinding
-    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesApp: SharedPreferences
     private lateinit var controllerMusic: MusicController
     private var levelPairGame: String = ""
     override fun onCreateView(
@@ -30,20 +30,16 @@ class FindPairGameFragment : Fragment() {
         binding = FragmentFindPairGameBinding.inflate(layoutInflater, container, false)
 
         controllerMusic = context?.let { MusicController(it) }!!
-        preferences =
-            requireActivity().getSharedPreferences(
-                "MagicMexicanFirePref",
-                AppCompatActivity.MODE_PRIVATE
-            )
+        preferencesApp = GameSettings.getPreference(requireContext())
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MusicStart.musicStartMode(R.raw.music_find_pair, controllerMusic, preferences)
+        MusicStart.musicStartMode(R.raw.music_find_pair, controllerMusic, preferencesApp)
 
-        levelPairGame = preferences.getString("LevelGame", "").toString()
+        levelPairGame = preferencesApp.getString("LevelGame", "").toString()
         when (levelPairGame) {
             "Level 1" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_first)
             "Level 2" -> {
@@ -72,7 +68,7 @@ class FindPairGameFragment : Fragment() {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
             it.startAnimation(animationButton)
             ManagerFindPair.resetFindPairGame(binding)
-            DialogFragmentsHighScoreFindPair.runDialogFindPairGame(requireContext(),preferences)
+            DialogFragmentsHighScoreFindPair.runDialogFindPairGame(requireContext(), preferencesApp)
         }
         binding.btnChange.setOnClickListener {
             animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)

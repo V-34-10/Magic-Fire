@@ -1,6 +1,7 @@
 package com.magicmex.canfire.view.games
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,26 +11,26 @@ import androidx.fragment.app.commit
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivitySceneBinding
 import com.magicmex.canfire.view.games.findgame.FindPairGameFragment
+import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.KenoGameFragment
 import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.navigation.NavigationManager
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
-    private val preferences by lazy {
-        getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
-    }
+    private lateinit var preferencesApp: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
+        preferencesApp = GameSettings.getPreference(this)
         initGameFragment()
     }
 
     private fun initGameFragment() = replaceFragment(
         createFragmentGames(
-            preferences.getString(
+            preferencesApp.getString(
                 "GameName",
                 getString(R.string.button_game_first)
             )
