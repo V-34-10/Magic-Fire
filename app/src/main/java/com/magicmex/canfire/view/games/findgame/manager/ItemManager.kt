@@ -28,10 +28,10 @@ object ItemManager {
                 R.drawable.find_2,
                 R.drawable.find_3,
                 R.drawable.find_4,
-                R.drawable.find_1,
-                R.drawable.find_2,
-                R.drawable.find_3,
-                R.drawable.find_4
+                R.drawable.find_5,
+                R.drawable.find__6,
+                R.drawable.find_7,
+                R.drawable.find_8
             )
 
             "Level 3" -> listOf(
@@ -39,14 +39,14 @@ object ItemManager {
                 R.drawable.find_2,
                 R.drawable.find_3,
                 R.drawable.find_4,
-                R.drawable.find_1,
-                R.drawable.find_2,
-                R.drawable.find_3,
-                R.drawable.find_4,
-                R.drawable.find_1,
-                R.drawable.find_2,
-                R.drawable.find_3,
-                R.drawable.find_4
+                R.drawable.find_5,
+                R.drawable.find__6,
+                R.drawable.find_7,
+                R.drawable.find_8,
+                R.drawable.find_9,
+                R.drawable.find_10,
+                R.drawable.find_11,
+                R.drawable.find_12
             )
 
             else -> listOf(
