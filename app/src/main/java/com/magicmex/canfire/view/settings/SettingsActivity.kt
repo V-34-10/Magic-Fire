@@ -52,14 +52,12 @@ class SettingsActivity : AppCompatActivity() {
             onMusic()
             preferences.edit().putBoolean("musicStatus", true).apply()
             vibroMode()
-            musicMode()
         }
         binding.buttonMusicOff.setOnClickListener {
             it.startAnimation(animationClick)
             offMusic()
             preferences.edit().putBoolean("musicStatus", false).apply()
             vibroMode()
-            musicMode()
         }
         binding.buttonVibroOn.setOnClickListener {
             it.startAnimation(animationClick)
@@ -87,15 +85,6 @@ class SettingsActivity : AppCompatActivity() {
         val isVibration = preferences.getBoolean("vibroStatus", false)
         if (isVibration) {
             vibroEmulateDevice(this, 500)
-        }
-    }
-
-    private fun musicMode() {
-        statusMusic = preferences.getBoolean("musicStatus", false)
-        if (statusMusic) {
-            musicController.apply {
-                playSound(R.raw.music_menu, true)
-            }
         }
     }
 
