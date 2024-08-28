@@ -3,7 +3,6 @@ package com.magicmex.canfire.view.games
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -13,6 +12,7 @@ import com.magicmex.canfire.databinding.ActivitySceneBinding
 import com.magicmex.canfire.view.games.findgame.FindPairGameFragment
 import com.magicmex.canfire.view.games.kenogame.KenoGameFragment
 import com.magicmex.canfire.view.level.LevelsActivity
+import com.magicmex.canfire.view.navigation.NavigationManager
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
@@ -23,7 +23,7 @@ class SceneActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        NavigationManager.setNavigationBarVisibility(this)
         initGameFragment()
     }
 

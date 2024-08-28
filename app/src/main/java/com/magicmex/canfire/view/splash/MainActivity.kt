@@ -3,10 +3,10 @@ package com.magicmex.canfire.view.splash
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.magicmex.canfire.databinding.ActivityMainBinding
+import com.magicmex.canfire.view.navigation.NavigationManager
 import com.magicmex.canfire.view.welcome.WelcomeActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        NavigationManager.setNavigationBarVisibility(this)
         navigateToWelcome()
     }
 
@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
         return progressBarWidth - 10
     }
 
-    private fun navigateToWelcome(){
+    private fun navigateToWelcome() {
         loadingBar()
         lifecycleScope.launch {
-            delay( 3000L)
+            delay(3000L)
             startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
             finish()
         }

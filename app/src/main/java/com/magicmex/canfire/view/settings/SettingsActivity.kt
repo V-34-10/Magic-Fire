@@ -5,17 +5,17 @@ import android.content.SharedPreferences
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
-import com.magicmex.canfire.view.settings.VibroController.vibroEmulateDevice
-import com.magicmex.canfire.view.settings.VibroController.vibroEmulateOff
 import com.magicmex.canfire.databinding.ActivitySettingsBinding
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
+import com.magicmex.canfire.view.navigation.NavigationManager
+import com.magicmex.canfire.view.settings.VibroController.vibroEmulateDevice
+import com.magicmex.canfire.view.settings.VibroController.vibroEmulateOff
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
@@ -30,7 +30,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        NavigationManager.setNavigationBarVisibility(this)
         musicController = MusicController(this)
         preferences = getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
         buttonsControls()

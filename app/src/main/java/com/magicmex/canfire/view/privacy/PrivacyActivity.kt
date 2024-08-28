@@ -3,12 +3,12 @@ package com.magicmex.canfire.view.privacy
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.magicmex.canfire.view.menu.MenuActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityPrivacyBinding
+import com.magicmex.canfire.view.menu.MenuActivity
+import com.magicmex.canfire.view.navigation.NavigationManager
 
 class PrivacyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }
@@ -16,7 +16,7 @@ class PrivacyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        this.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        NavigationManager.setNavigationBarVisibility(this)
         acceptPrivacyPolicy()
     }
 
