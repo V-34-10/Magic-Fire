@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/status_level"
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/btn_change_second"
                 android:clickable="true"
@@ -75,7 +75,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/select_choice_combination"
-            android:layout_width="170dp"
+            android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
@@ -103,7 +103,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/status_time"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="25dp"
@@ -174,7 +174,7 @@
         android:id="@+id/btn_claim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/btn_claim_second"
         android:clickable="true"
