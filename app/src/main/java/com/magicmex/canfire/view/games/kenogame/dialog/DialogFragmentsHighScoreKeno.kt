@@ -61,7 +61,6 @@ object DialogFragmentsHighScoreKeno {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_fragment_keno_high_score)
-        //dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCanceledOnTouchOutside(false)
 
         val dialogView = dialog.findViewById<ConstraintLayout>(R.id.scoreKeno)
