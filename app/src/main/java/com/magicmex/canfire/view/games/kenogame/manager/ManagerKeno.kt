@@ -27,7 +27,6 @@ object ManagerKeno {
     private var elapsedTime: Long = 0
     private var gameStarted = false
     private var secondsUpdateTime = 1000L
-    private var maxNumbers: String = ""
 
     @SuppressLint("NotifyDataSetChanged")
     fun initRecyclerKenoScene(binding: ViewBinding, context: Context) {
@@ -62,7 +61,7 @@ object ManagerKeno {
             selectedNumbers.remove(selectedNumber)
             selectedNumber.isSelected = false
         } else {
-            if (selectedNumbers.size < maxNumbers.getMaxNumbers()) {
+            if (selectedNumbers.size < levelKenoGame.getMaxNumbers()) {
                 selectedNumbers.add(selectedNumber)
                 selectedNumber.isSelected = true
             }
@@ -94,7 +93,7 @@ object ManagerKeno {
 
     private fun generateWinningNumbers() {
         winningNumbers.clear()
-        while (winningNumbers.size < maxNumbers.getMaxNumbers()) {
+        while (winningNumbers.size < levelKenoGame.getMaxNumbers()) {
             val randomValue = (1..35).random()
             if (!winningNumbers.any { it.index == randomValue }) {
                 winningNumbers.add(KenoGame(randomValue, isWinning = true))
