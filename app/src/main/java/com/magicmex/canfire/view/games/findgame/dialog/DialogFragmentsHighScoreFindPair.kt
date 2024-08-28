@@ -17,37 +17,27 @@ object DialogFragmentsHighScoreFindPair {
 
     private fun initScoreFindPairGame(preferences: SharedPreferences, dialogView: View) {
         loadScoreFindPairGame(preferences)
-
         val stats = HighScoreFindPairManager.statsHighScoreFindPair
 
-        val easyStats = stats["Level 1"]!!
-        val mediumStats = stats["Level 2"]!!
-        val hardStats = stats["Level 3"]!!
+        val levels = mapOf(
+            "Level 1" to Pair(R.id.time_level_first, R.id.steps_level_first),
+            "Level 2" to Pair(R.id.time_level_second, R.id.steps_level_second),
+            "Level 3" to Pair(R.id.time_level_three, R.id.steps_level_three)
+        )
 
-        val timeLevelFirst = dialogView.findViewById<TextView>(R.id.time_level_first)
-        val stepsLevelFirst = dialogView.findViewById<TextView>(R.id.steps_level_first)
-        val timeLevelSecond = dialogView.findViewById<TextView>(R.id.time_level_second)
-        val stepsLevelSecond = dialogView.findViewById<TextView>(R.id.steps_level_second)
-        val timeLevelThree = dialogView.findViewById<TextView>(R.id.time_level_three)
-        val stepsLevelThree = dialogView.findViewById<TextView>(R.id.steps_level_three)
+        levels.forEach { (level, viewIds) ->
+            val timeView = dialogView.findViewById<TextView>(viewIds.first)
+            val stepsView = dialogView.findViewById<TextView>(viewIds.second)
+            val levelStats = stats[level]!!
 
-        setScoreText(timeLevelFirst, easyStats.bestTime)
-        stepsLevelFirst.text = easyStats.bestSteps.toString()
-
-        setScoreText(timeLevelSecond, mediumStats.bestTime)
-        stepsLevelSecond.text = mediumStats.bestSteps.toString()
-
-        setScoreText(timeLevelThree, hardStats.bestTime)
-        stepsLevelThree.text = hardStats.bestSteps.toString()
+            setScoreText(timeView, levelStats.bestTime)
+            stepsView.text = levelStats.bestSteps.toString()
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setScoreText(textView: TextView, bestTime: Long) {
-        val formattedTime = if (bestTime == Long.MAX_VALUE) {
-            "00:00"
-        } else {
-            formatTime(bestTime)
-        }
+        val formattedTime = if (bestTime == Long.MAX_VALUE) "00:00" else formatTime(bestTime)
         textView.text = formattedTime
     }
 
