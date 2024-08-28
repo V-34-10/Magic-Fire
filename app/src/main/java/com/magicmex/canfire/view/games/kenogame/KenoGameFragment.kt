@@ -107,13 +107,14 @@ class KenoGameFragment : Fragment() {
         updateSelectedNumbersText()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateSelectedNumbersText() {
         val selectedText = if (selectedNumbers.isEmpty()) {
-            getString(R.string.text_default_choice_second)
+            ""
         } else {
             selectedNumbers.joinToString(" ") { it.index.toString() }
         }
-        binding.textYouChoice.text = selectedText
+        binding.textYouChoice.text = getString(R.string.text_default_choice_second) + selectedText
     }
 
     private fun startKenoGame() {
@@ -206,7 +207,8 @@ class KenoGameFragment : Fragment() {
     }
 
     private fun updateTimerUI() {
-        binding.textTime.text = String.format("%02d:%02d", (elapsedTime / 1000) / 60, (elapsedTime / 1000) % 60)
+        binding.textTime.text =
+            String.format("%02d:%02d", (elapsedTime / 1000) / 60, (elapsedTime / 1000) % 60)
     }
 
     @SuppressLint("NotifyDataSetChanged")
