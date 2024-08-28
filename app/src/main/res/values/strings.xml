@@ -44,5 +44,6 @@
     <string name="toast_lose">Try again, you\'ve lost!</string>
     <string name="btn_privacy">btn_privacy</string>
     <string name="reset_message">Reset all High Score</string>
+    <string name="sourcebanner">border banner</string>
 
 </resources>
