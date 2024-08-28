@@ -93,10 +93,10 @@ class KenoGameFragment : Fragment() {
             selectedNumber.isSelected = false
         } else {
             val maxNumbers = when (levelKenoGame) {
-                "Level 1" -> 6
+                "Level 1" -> 5
                 "Level 2" -> 4
-                "Level 3" -> 2
-                else -> 2
+                "Level 3" -> 3
+                else -> 5
             }
             if (selectedNumbers.size < maxNumbers) {
                 selectedNumbers.add(selectedNumber)
@@ -128,10 +128,10 @@ class KenoGameFragment : Fragment() {
     private fun generateWinningNumbers() {
         winningNumbers.clear()
         val maxNumbers = when (levelKenoGame) {
-            "Level 1" -> 6
+            "Level 1" -> 5
             "Level 2" -> 4
-            "Level 3" -> 2
-            else -> 2
+            "Level 3" -> 3
+            else -> 5
         }
         while (winningNumbers.size < maxNumbers) {
             val randomValue = (1..35).random()
