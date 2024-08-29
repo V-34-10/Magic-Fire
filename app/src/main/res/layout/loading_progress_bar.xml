@@ -7,7 +7,7 @@
     android:background="@drawable/background_bar">
 
     <View
-        android:id="@+id/loading_line"
+        android:id="@+id/lineBar"
         android:layout_width="10dp"
         android:layout_height="30dp"
         android:layout_margin="5dp"
