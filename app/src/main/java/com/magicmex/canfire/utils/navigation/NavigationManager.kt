@@ -1,4 +1,4 @@
-package com.magicmex.canfire.view.navigation
+package com.magicmex.canfire.utils.navigation
 
 import android.app.Activity
 import android.content.res.Configuration

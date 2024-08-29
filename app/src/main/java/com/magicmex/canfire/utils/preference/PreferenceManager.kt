@@ -1,10 +1,10 @@
-package com.magicmex.canfire.view.games.findgame.manager
+package com.magicmex.canfire.utils.preference
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 
-object GameSettings {
+object PreferenceManager {
     private lateinit var preferences: SharedPreferences
 
     var selectedLevel: String = ""
