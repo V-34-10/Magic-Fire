@@ -39,17 +39,18 @@ class KenoGameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         MusicStart.musicStartMode(R.raw.music_keno, controllerMusic, preferencesApp)
         PreferenceManager.init(requireContext())
+        setUIBackgroundDependedLevel()
+        context?.let { initRecyclerKenoScene(binding, it) }
+        initControlBarKenoGame()
+        ManagerKeno.startTimer(binding)
+    }
 
-        levelKenoGame = PreferenceManager.selectedLevel
-        when (levelKenoGame) {
+    private fun setUIBackgroundDependedLevel() {
+        when (PreferenceManager.selectedLevel) {
             "Level 1" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_first_keno)
             "Level 2" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_second_keno)
             "Level 3" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_three_keno)
         }
-
-        context?.let { initRecyclerKenoScene(binding, it) }
-        initControlBarKenoGame()
-        ManagerKeno.startTimer(binding)
     }
 
     private fun initControlBarKenoGame() {

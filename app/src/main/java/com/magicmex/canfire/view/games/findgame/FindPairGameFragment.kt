@@ -37,9 +37,14 @@ class FindPairGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MusicStart.musicStartMode(R.raw.music_find_pair, controllerMusic, preferencesApp)
+        PreferenceManager.init(requireContext())
+        setUIBackgroundDependedLevel()
+        context?.let { ManagerFindPair.initFindPairGame(binding, it) }
+        initControlBarGame()
+    }
 
-        levelPairGame = preferencesApp.getString("LevelGame", "").toString()
-        when (levelPairGame) {
+    private fun setUIBackgroundDependedLevel() {
+        when (PreferenceManager.selectedLevel) {
             "Level 1" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_first)
             "Level 2" -> {
                 binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_second)
@@ -51,10 +56,6 @@ class FindPairGameFragment : Fragment() {
                 binding.backgroundGameFindPair.setBackgroundResource(R.drawable.background_find_pair_game_level_three)
             }
         }
-
-        PreferenceManager.init(requireContext())
-        context?.let { ManagerFindPair.initFindPairGame(binding, it) }
-        initControlBarGame()
     }
 
     private fun initControlBarGame() {
