@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.view.games.GamesActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityMenuBinding
-import com.magicmex.canfire.view.navigation.NavigationManager
+import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.view.privacy.PrivacyActivity
 import com.magicmex.canfire.view.settings.SettingsActivity
 

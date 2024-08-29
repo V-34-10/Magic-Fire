@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityWelcomeBinding
 import com.magicmex.canfire.view.menu.MenuActivity
-import com.magicmex.canfire.view.navigation.NavigationManager
+import com.magicmex.canfire.utils.navigation.NavigationManager
 
 class WelcomeActivity : AppCompatActivity() {
     private val binding by lazy { ActivityWelcomeBinding.inflate(layoutInflater) }
