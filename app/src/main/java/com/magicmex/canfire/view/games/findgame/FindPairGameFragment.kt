@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
+import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.findgame.dialog.DialogFragmentsHighScoreFindPair
 import com.magicmex.canfire.view.games.findgame.manager.ManagerFindPair
@@ -58,20 +58,17 @@ class FindPairGameFragment : Fragment() {
     }
 
     private fun initControlBarGame() {
-        var animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
         binding.btnClaim.setOnClickListener {
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             ManagerFindPair.resetFindPairGame(binding)
         }
         binding.btnHighScore.setOnClickListener {
-            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             ManagerFindPair.resetFindPairGame(binding)
             DialogFragmentsHighScoreFindPair.runDialogFindPairGame(requireContext(), preferencesApp)
         }
         binding.btnChange.setOnClickListener {
-            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             startActivity(Intent(context, LevelsActivity::class.java))
             activity?.finish()
         }

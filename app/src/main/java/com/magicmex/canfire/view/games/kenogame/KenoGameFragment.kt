@@ -6,10 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
+import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno
@@ -53,24 +53,20 @@ class KenoGameFragment : Fragment() {
     }
 
     private fun initControlBarKenoGame() {
-        var animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
         binding.btnClaim.setOnClickListener {
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             ManagerKeno.startKenoGame(requireContext(), binding)
         }
         binding.btnRestart.setOnClickListener {
-            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             ManagerKeno.restartGame(requireContext(), binding)
         }
         binding.btnHighScore.setOnClickListener {
-            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext(), preferencesApp)
         }
         binding.btnChange.setOnClickListener {
-            animationButton = AnimationUtils.loadAnimation(context, R.anim.scale_animation)
-            it.startAnimation(animationButton)
+            it.startAnimation(setAnimationClickButton(requireContext()))
             startActivity(Intent(context, LevelsActivity::class.java))
             activity?.finish()
         }

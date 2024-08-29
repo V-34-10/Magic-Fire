@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import com.magicmex.canfire.view.games.GamesActivity
-import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityMenuBinding
+import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
+import com.magicmex.canfire.view.games.GamesActivity
 import com.magicmex.canfire.view.privacy.PrivacyActivity
 import com.magicmex.canfire.view.settings.SettingsActivity
 
@@ -23,15 +22,28 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun controlBarMenuButton() {
-        val animationButton = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
-
         binding.apply {
-            setupButton(buttonGames, GamesActivity::class.java, animationButton)
-            setupButton(buttonSettings, SettingsActivity::class.java, animationButton)
-            setupButton(buttonPrivacy, PrivacyActivity::class.java, animationButton)
+            setupButton(
+                buttonGames,
+                GamesActivity::class.java,
+                setAnimationClickButton(this@MenuActivity)
+            )
+            setupButton(
+                buttonSettings,
+                SettingsActivity::class.java,
+                setAnimationClickButton(this@MenuActivity)
+            )
+            setupButton(
+                buttonPrivacy,
+                PrivacyActivity::class.java,
+                setAnimationClickButton(this@MenuActivity)
+            )
             textExit.setOnClickListener {
-                it.startAnimation(animationButton)
-                it.postDelayed({ finishAffinity() }, animationButton.duration)
+                it.startAnimation(setAnimationClickButton(this@MenuActivity))
+                it.postDelayed(
+                    { finishAffinity() },
+                    setAnimationClickButton(this@MenuActivity).duration
+                )
             }
         }
     }

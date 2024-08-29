@@ -5,10 +5,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityLevelsBinding
+import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.SceneActivity
@@ -25,15 +25,28 @@ class LevelsActivity : AppCompatActivity() {
     }
 
     private fun choiceLevelsGameButton() {
-        val animationButton = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
-
         binding.apply {
-            setupLevelsGameButton(buttonLevelFirst, R.string.button_level_first, animationButton)
-            setupLevelsGameButton(buttonLevelSecond, R.string.button_level_second, animationButton)
-            setupLevelsGameButton(buttonLevelThree, R.string.button_level_three, animationButton)
+            setupLevelsGameButton(
+                buttonLevelFirst,
+                R.string.button_level_first,
+                setAnimationClickButton(this@LevelsActivity)
+            )
+            setupLevelsGameButton(
+                buttonLevelSecond,
+                R.string.button_level_second,
+                setAnimationClickButton(this@LevelsActivity)
+            )
+            setupLevelsGameButton(
+                buttonLevelThree,
+                R.string.button_level_three,
+                setAnimationClickButton(this@LevelsActivity)
+            )
             textExit.setOnClickListener {
-                it.startAnimation(animationButton)
-                it.postDelayed({ finishAffinity() }, animationButton.duration)
+                it.startAnimation(setAnimationClickButton(this@LevelsActivity))
+                it.postDelayed(
+                    { finishAffinity() },
+                    setAnimationClickButton(this@LevelsActivity).duration
+                )
             }
         }
     }

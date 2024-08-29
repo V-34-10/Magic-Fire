@@ -3,16 +3,15 @@ package com.magicmex.canfire.view.privacy
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityPrivacyBinding
-import com.magicmex.canfire.view.menu.MenuActivity
+import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
+import com.magicmex.canfire.view.menu.MenuActivity
 
 class PrivacyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }
-    private var linkPrivacy: String = getString(R.string.link_privacy)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -21,18 +20,21 @@ class PrivacyActivity : AppCompatActivity() {
     }
 
     private fun acceptPrivacyPolicy() {
-        val animationClick = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
-
         binding.apply {
             btnAccept.setOnClickListener {
-                it.startAnimation(animationClick)
+                it.startAnimation(setAnimationClickButton(this@PrivacyActivity))
                 startActivity(Intent(this@PrivacyActivity, MenuActivity::class.java))
                 finish()
             }
 
             textPrivacyLink.setOnClickListener {
-                it.startAnimation(animationClick)
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(linkPrivacy)))
+                it.startAnimation(setAnimationClickButton(this@PrivacyActivity))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(getString(R.string.link_privacy))
+                    )
+                )
             }
         }
     }

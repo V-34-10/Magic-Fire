@@ -5,12 +5,12 @@ import android.content.SharedPreferences
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivitySettingsBinding
+import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
@@ -42,32 +42,31 @@ class SettingsActivity : AppCompatActivity() {
     private fun buttonsControls() {
         statusVibro = preferencesApp.getBoolean("vibroStatus", false)
         statusMusic = preferencesApp.getBoolean("musicStatus", false)
-        val animationClick = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
         binding.buttonResetScore.setOnClickListener {
-            it.startAnimation(animationClick)
+            it.startAnimation(setAnimationClickButton(this))
             Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT).show()
             resetStatsScoreFindPairGame(preferencesApp)
             resetStatsScoreKenoGame(preferencesApp)
         }
         binding.buttonMusicOn.setOnClickListener {
-            it.startAnimation(animationClick)
+            it.startAnimation(setAnimationClickButton(this))
             onMusic()
             preferencesApp.edit().putBoolean("musicStatus", true).apply()
             vibroMode()
         }
         binding.buttonMusicOff.setOnClickListener {
-            it.startAnimation(animationClick)
+            it.startAnimation(setAnimationClickButton(this))
             offMusic()
             preferencesApp.edit().putBoolean("musicStatus", false).apply()
             vibroMode()
         }
         binding.buttonVibroOn.setOnClickListener {
-            it.startAnimation(animationClick)
+            it.startAnimation(setAnimationClickButton(this))
             preferencesApp.edit().putBoolean("vibroStatus", true).apply()
             vibroMode()
         }
         binding.buttonVibroOff.setOnClickListener {
-            it.startAnimation(animationClick)
+            it.startAnimation(setAnimationClickButton(this))
             vibroEmulateOff(this)
             preferencesApp.edit().putBoolean("vibroStatus", false).apply()
             vibroMode()
