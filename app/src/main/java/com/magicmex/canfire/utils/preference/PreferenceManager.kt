@@ -15,10 +15,6 @@ object PreferenceManager {
         selectedLevel = preferences.getString("LevelGame", "") ?: ""
     }
 
-    fun getPreference(context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            "MagicMexicanFirePref",
-            AppCompatActivity.MODE_PRIVATE
-        )
-    }
+    fun getPreference(context: Context): SharedPreferences =
+        context.getSharedPreferences("MagicMexicanFirePref", AppCompatActivity.MODE_PRIVATE)
 }
