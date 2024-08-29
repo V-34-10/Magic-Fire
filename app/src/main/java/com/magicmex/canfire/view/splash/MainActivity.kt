@@ -42,11 +42,13 @@ class MainActivity : AppCompatActivity() {
         loadingBar()
         lifecycleScope.launch {
             delay(3000L)
-            if (!checkStateEthernet()) {
+            /*if (!checkStateEthernet()) {
                 checkNavigateToPrivacy()
             } else {
                 initBorderBanner()
-            }
+            }*/
+            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+            finish()
         }
     }
 
