@@ -68,6 +68,7 @@ object ManagerKeno {
         }
         kenoGameAdapter.notifyDataSetChanged()
         updateSelectedNumbersText(context, binding)
+        recyclerViewSceneGame.isEnabled = false
     }
 
     @SuppressLint("SetTextI18n")
@@ -89,6 +90,11 @@ object ManagerKeno {
         generateWinningNumbers()
         updateWinningNumbersText(binding)
         checkWinningCondition(context)
+        when (binding) {
+            is FragmentKenoGameBinding -> {
+                binding.btnClaim.isEnabled = false
+            }
+        }
     }
 
     private fun generateWinningNumbers() {
@@ -163,6 +169,8 @@ object ManagerKeno {
             is FragmentKenoGameBinding -> {
                 binding.textWinCombination.text = ""
                 binding.textTime.text = context.getString(R.string.text_default_time)
+                binding.btnClaim.isEnabled = true
+                recyclerViewSceneGame.isEnabled = true
             }
         }
 
