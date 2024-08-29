@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityPrivacyBinding
 import com.magicmex.canfire.view.menu.MenuActivity
-import com.magicmex.canfire.view.navigation.NavigationManager
+import com.magicmex.canfire.utils.navigation.NavigationManager
 
 class PrivacyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }
-    private var linkPrivacy: String = "https://www.google.com"
+    private var linkPrivacy: String = getString(R.string.link_privacy)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
