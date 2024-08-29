@@ -10,8 +10,8 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.findgame.dialog.DialogFragmentsHighScoreFindPair
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.findgame.manager.ManagerFindPair
 import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.settings.music.MusicController
@@ -29,7 +29,7 @@ class FindPairGameFragment : Fragment() {
         binding = FragmentFindPairGameBinding.inflate(layoutInflater, container, false)
 
         controllerMusic = context?.let { MusicController(it) }!!
-        preferencesApp = GameSettings.getPreference(requireContext())
+        preferencesApp = PreferenceManager.getPreference(requireContext())
 
         return binding.root
     }
@@ -52,7 +52,7 @@ class FindPairGameFragment : Fragment() {
             }
         }
 
-        GameSettings.init(requireContext())
+        PreferenceManager.init(requireContext())
         context?.let { ManagerFindPair.initFindPairGame(binding, it) }
         initControlBarGame()
     }

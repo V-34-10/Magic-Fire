@@ -8,10 +8,10 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.magicmex.canfire.R
-import com.magicmex.canfire.view.games.SceneActivity
 import com.magicmex.canfire.databinding.ActivityLevelsBinding
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
-import com.magicmex.canfire.view.navigation.NavigationManager
+import com.magicmex.canfire.utils.navigation.NavigationManager
+import com.magicmex.canfire.utils.preference.PreferenceManager
+import com.magicmex.canfire.view.games.SceneActivity
 
 class LevelsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLevelsBinding.inflate(layoutInflater) }
@@ -20,7 +20,7 @@ class LevelsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferencesApp = GameSettings.getPreference(this)
+        preferencesApp = PreferenceManager.getPreference(this)
         choiceLevelsGameButton()
     }
 

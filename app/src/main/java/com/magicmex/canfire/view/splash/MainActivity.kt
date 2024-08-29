@@ -10,9 +10,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.magicmex.canfire.databinding.ActivityMainBinding
+import com.magicmex.canfire.utils.navigation.NavigationManager
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.border.BorderBanner
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
-import com.magicmex.canfire.view.navigation.NavigationManager
 import com.magicmex.canfire.view.privacy.PrivacyActivity
 import com.magicmex.canfire.view.welcome.WelcomeActivity
 import kotlinx.coroutines.delay
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferencesApp = GameSettings.getPreference(this)
+        preferencesApp = PreferenceManager.getPreference(this)
         borderBanner = BorderBanner(this, binding)
         navigateTo()
     }
@@ -88,13 +88,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadingBar() {
         val maxAnimationWidth = getDisplayMetrics()
-        val layoutParams = binding.loadingBar.loadingLine.layoutParams
+        val layoutParams = binding.customBarLoad.lineBar.layoutParams
 
         val animation = ValueAnimator.ofInt(10, maxAnimationWidth).apply {
             this.duration = 3000L
             addUpdateListener {
                 layoutParams.width = it.animatedValue as Int
-                binding.loadingBar.loadingLine.layoutParams = layoutParams
+                binding.customBarLoad.lineBar.layoutParams = layoutParams
             }
         }
 

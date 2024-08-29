@@ -14,6 +14,7 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.adapter.findgame.FindPairAdapter
 import com.magicmex.canfire.databinding.FragmentFindPairGameBinding
 import com.magicmex.canfire.model.findgame.FindPair
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.statsHighScoreFindPair
 
@@ -39,9 +40,9 @@ object ManagerFindPair {
     private var gameStarted = false
 
     fun initFindPairGame(binding: ViewBinding, context: Context) {
-        preferences = GameSettings.getPreference(context)
+        preferences = PreferenceManager.getPreference(context)
 
-        selectedLevelPairGame = GameSettings.selectedLevel
+        selectedLevelPairGame = PreferenceManager.selectedLevel
 
         adapterPair = FindPairAdapter(pairList, selectedLevelPairGame)
 

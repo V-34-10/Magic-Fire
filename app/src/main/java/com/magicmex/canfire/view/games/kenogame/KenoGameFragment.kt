@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno.initRecyclerKenoScene
@@ -30,7 +30,7 @@ class KenoGameFragment : Fragment() {
         binding = FragmentKenoGameBinding.inflate(layoutInflater, container, false)
 
         controllerMusic = context?.let { MusicController(it) }!!
-        preferencesApp = GameSettings.getPreference(requireContext())
+        preferencesApp = PreferenceManager.getPreference(requireContext())
 
         return binding.root
     }
@@ -38,9 +38,9 @@ class KenoGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MusicStart.musicStartMode(R.raw.music_keno, controllerMusic, preferencesApp)
-        GameSettings.init(requireContext())
+        PreferenceManager.init(requireContext())
 
-        levelKenoGame = GameSettings.selectedLevel
+        levelKenoGame = PreferenceManager.selectedLevel
         when (levelKenoGame) {
             "Level 1" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_first_keno)
             "Level 2" -> binding.statusLevel.setBackgroundResource(R.drawable.background_status_level_second_keno)

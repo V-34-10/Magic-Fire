@@ -9,6 +9,7 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import com.magicmex.canfire.databinding.ActivityMainBinding
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.privacy.PrivacyActivity
 import com.magicmex.canfire.view.welcome.WelcomeActivity
 import okhttp3.Call
@@ -30,8 +31,7 @@ class BorderBanner (
         "https://miracle-of-divas.com/welcome"
     private lateinit var cookies: String
     private lateinit var userAgent: String
-    private var sharedPreferences: SharedPreferences =
-        activity.getSharedPreferences("MagicMexicanFirePref", Context.MODE_PRIVATE)
+    private var sharedPreferences: SharedPreferences = PreferenceManager.getPreference(activity)
     private var call: Call? = null
     private var isTimeUp = false
     private var latch = CountDownLatch(1)

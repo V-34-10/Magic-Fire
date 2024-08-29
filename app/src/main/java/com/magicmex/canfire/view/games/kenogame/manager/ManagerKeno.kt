@@ -12,7 +12,7 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.adapter.kenogame.KenoGameAdapter
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
 import com.magicmex.canfire.model.kenogame.KenoGame
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager
 
 object ManagerKeno {
@@ -30,7 +30,7 @@ object ManagerKeno {
 
     @SuppressLint("NotifyDataSetChanged")
     fun initRecyclerKenoScene(binding: ViewBinding, context: Context) {
-        preferencesApp = GameSettings.getPreference(context)
+        preferencesApp = PreferenceManager.getPreference(context)
         val kenoNumbers = (1..35).map { KenoGame(it) }.toMutableList()
         kenoGameAdapter = KenoGameAdapter(
             kenoNumbers,
@@ -56,7 +56,7 @@ object ManagerKeno {
         context: Context,
         binding: ViewBinding
     ) {
-        levelKenoGame = GameSettings.selectedLevel
+        levelKenoGame = PreferenceManager.selectedLevel
         if (selectedNumbers.contains(selectedNumber)) {
             selectedNumbers.remove(selectedNumber)
             selectedNumber.isSelected = false

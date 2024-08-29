@@ -10,11 +10,11 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivitySceneBinding
+import com.magicmex.canfire.utils.navigation.NavigationManager
+import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.view.games.findgame.FindPairGameFragment
-import com.magicmex.canfire.view.games.findgame.manager.GameSettings
 import com.magicmex.canfire.view.games.kenogame.KenoGameFragment
 import com.magicmex.canfire.view.level.LevelsActivity
-import com.magicmex.canfire.view.navigation.NavigationManager
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
@@ -24,7 +24,7 @@ class SceneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferencesApp = GameSettings.getPreference(this)
+        preferencesApp = PreferenceManager.getPreference(this)
         initGameFragment()
     }
 
