@@ -1,7 +1,6 @@
 package com.magicmex.canfire.view.level
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -10,17 +9,15 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivityLevelsBinding
 import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
-import com.magicmex.canfire.utils.preference.PreferenceManager
+import com.magicmex.canfire.utils.preference.PreferenceManager.setLevelGame
 import com.magicmex.canfire.view.games.SceneActivity
 
 class LevelsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLevelsBinding.inflate(layoutInflater) }
-    private lateinit var preferencesApp: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferencesApp = PreferenceManager.getPreference(this)
         choiceLevelsGameButton()
     }
 
@@ -54,7 +51,7 @@ class LevelsActivity : AppCompatActivity() {
     private fun setupLevelsGameButton(button: View, gameNameResId: Int, animation: Animation) {
         button.setOnClickListener {
             it.startAnimation(animation)
-            preferencesApp.edit().putString("LevelGame", getString(gameNameResId)).apply()
+            setLevelGame(this, gameNameResId)
             startActivity(Intent(this@LevelsActivity, SceneActivity::class.java))
             finish()
         }
