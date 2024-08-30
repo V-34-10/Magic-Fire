@@ -23,6 +23,10 @@ object PreferenceManager {
         musicStatus = getPreference(context).getBoolean("musicStatus", false)
     }
 
+    fun setLevelGame(context: Context, gameNameResId: Int) =
+        getPreference(context).edit().putString("LevelGame", context.getString(gameNameResId))
+            .apply()
+
     fun setSettingsMusicTrue(context: Context) =
         getPreference(context).edit().putBoolean("musicStatus", true).apply()
 
