@@ -6,6 +6,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import androidx.annotation.RequiresApi
+import com.magicmex.canfire.utils.preference.PreferenceManager
 
 object VibroController {
     private fun getVibrator(context: Context): Vibrator {
@@ -41,5 +42,12 @@ object VibroController {
 
     fun vibroEmulateOff(context: Context) {
         getVibrator(context).cancel()
+    }
+}
+
+object VibroStart {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun vibroMode(context: Context) {
+        if (PreferenceManager.vibroStatus) VibroController.vibroEmulateDevice(context, 500)
     }
 }

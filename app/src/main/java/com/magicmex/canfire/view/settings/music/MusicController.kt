@@ -1,12 +1,12 @@
 package com.magicmex.canfire.view.settings.music
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.util.SparseArray
 import androidx.annotation.RawRes
+import com.magicmex.canfire.utils.preference.PreferenceManager
 
 class MusicController(private val context: Context) {
     private val mediaPlayers = SparseArray<MediaPlayer>()
@@ -62,12 +62,8 @@ class MusicController(private val context: Context) {
 object MusicStart {
     fun musicStartMode(
         sourceMusic: Int,
-        managerMusic: MusicController,
-        preferences: SharedPreferences
+        managerMusic: MusicController
     ) {
-        val statusMusic = preferences.getBoolean("musicStatus", false)
-        if (statusMusic) {
-            managerMusic.apply { playSound(sourceMusic, true) }
-        }
+        if (PreferenceManager.musicStatus) managerMusic.apply { playSound(sourceMusic, true) }
     }
 }
