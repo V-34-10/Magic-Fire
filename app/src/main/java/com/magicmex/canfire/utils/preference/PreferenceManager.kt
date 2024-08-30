@@ -3,9 +3,13 @@ package com.magicmex.canfire.utils.preference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
+import com.magicmex.canfire.R
 
 object PreferenceManager {
     var selectedLevel: String = ""
+        private set
+
+    var gameName: String = ""
         private set
 
     var vibroStatus: Boolean = false
@@ -18,14 +22,22 @@ object PreferenceManager {
         selectedLevel = getPreference(context).getString("LevelGame", "") ?: ""
     }
 
+    fun setLevelGame(context: Context, gameNameResId: Int) =
+        getPreference(context).edit().putString("LevelGame", context.getString(gameNameResId))
+            .apply()
+
+    fun initGameName(context: Context) {
+        gameName = getPreference(context).getString("GameName", context.getString(R.string.button_game_first)) ?: ""
+    }
+
+    fun setGameName(context: Context, gameNameResId: Int) =
+        getPreference(context).edit().putString("GameName", context.getString(gameNameResId))
+            .apply()
+
     fun initSettings(context: Context) {
         vibroStatus = getPreference(context).getBoolean("vibroStatus", false)
         musicStatus = getPreference(context).getBoolean("musicStatus", false)
     }
-
-    fun setLevelGame(context: Context, gameNameResId: Int) =
-        getPreference(context).edit().putString("LevelGame", context.getString(gameNameResId))
-            .apply()
 
     fun setSettingsMusicTrue(context: Context) =
         getPreference(context).edit().putBoolean("musicStatus", true).apply()
