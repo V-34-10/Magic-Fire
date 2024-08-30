@@ -1,7 +1,6 @@
 package com.magicmex.canfire.view.games.kenogame
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.FragmentKenoGameBinding
 import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.preference.PreferenceManager
+import com.magicmex.canfire.utils.preference.PreferenceManager.initSettings
 import com.magicmex.canfire.view.games.kenogame.dialog.DialogFragmentsHighScoreKeno
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno
 import com.magicmex.canfire.view.games.kenogame.manager.ManagerKeno.initRecyclerKenoScene
@@ -20,25 +20,21 @@ import com.magicmex.canfire.view.settings.music.MusicStart
 
 class KenoGameFragment : Fragment() {
     private lateinit var binding: FragmentKenoGameBinding
-    private lateinit var preferencesApp: SharedPreferences
     private lateinit var controllerMusic: MusicController
-    private var levelKenoGame: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentKenoGameBinding.inflate(layoutInflater, container, false)
-
         controllerMusic = context?.let { MusicController(it) }!!
-        preferencesApp = PreferenceManager.getPreference(requireContext())
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MusicStart.musicStartMode(R.raw.music_keno, controllerMusic, preferencesApp)
-        PreferenceManager.init(requireContext())
+        initSettings(requireContext())
+        MusicStart.musicStartMode(R.raw.music_keno, controllerMusic)
+        PreferenceManager.initLevelGame(requireContext())
         setUIBackgroundDependedLevel()
         context?.let { initRecyclerKenoScene(binding, it) }
         initControlBarKenoGame()
@@ -64,7 +60,10 @@ class KenoGameFragment : Fragment() {
         }
         binding.btnHighScore.setOnClickListener {
             it.startAnimation(setAnimationClickButton(requireContext()))
-            DialogFragmentsHighScoreKeno.runDialogKenoGame(requireContext(), preferencesApp)
+            DialogFragmentsHighScoreKeno.runDialogKenoGame(
+                requireContext(),
+                PreferenceManager.getPreference(requireContext())
+            )
         }
         binding.btnChange.setOnClickListener {
             it.startAnimation(setAnimationClickButton(requireContext()))
