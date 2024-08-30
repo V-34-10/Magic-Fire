@@ -1,8 +1,5 @@
 package com.magicmex.canfire.view.settings
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -13,20 +10,22 @@ import com.magicmex.canfire.databinding.ActivitySettingsBinding
 import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager
+import com.magicmex.canfire.utils.preference.PreferenceManager.initSettings
+import com.magicmex.canfire.utils.preference.PreferenceManager.setSettingsMusicFalse
+import com.magicmex.canfire.utils.preference.PreferenceManager.setSettingsMusicTrue
+import com.magicmex.canfire.utils.preference.PreferenceManager.setSettingsVibroFalse
+import com.magicmex.canfire.utils.preference.PreferenceManager.setSettingsVibroTrue
 import com.magicmex.canfire.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
 import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
 import com.magicmex.canfire.view.settings.music.MusicController
-import com.magicmex.canfire.view.settings.vibro.VibroController.vibroEmulateDevice
+import com.magicmex.canfire.view.settings.music.MusicVolumeManager
 import com.magicmex.canfire.view.settings.vibro.VibroController.vibroEmulateOff
+import com.magicmex.canfire.view.settings.vibro.VibroStart.vibroMode
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
-    private lateinit var preferencesApp: SharedPreferences
-    private val managerMusic by lazy { getSystemService(Context.AUDIO_SERVICE) as AudioManager }
-    private var defaultMusicVolume: Int = 25
-    private var statusVibro: Boolean = false
-    private var statusMusic: Boolean = false
     private lateinit var musicController: MusicController
+    private lateinit var musicVolume: MusicVolumeManager
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,58 +33,44 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
         musicController = MusicController(this)
-        preferencesApp = PreferenceManager.getPreference(this)
+        musicVolume = MusicVolumeManager(this)
+        initSettings(this)
         buttonsControls()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun buttonsControls() {
-        statusVibro = preferencesApp.getBoolean("vibroStatus", false)
-        statusMusic = preferencesApp.getBoolean("musicStatus", false)
         binding.buttonResetScore.setOnClickListener {
             it.startAnimation(setAnimationClickButton(this))
             Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT).show()
-            resetStatsScoreFindPairGame(preferencesApp)
-            resetStatsScoreKenoGame(preferencesApp)
+            resetStatsScoreFindPairGame(PreferenceManager.getPreference(this))
+            resetStatsScoreKenoGame(PreferenceManager.getPreference(this))
+            vibroMode(this)
         }
         binding.buttonMusicOn.setOnClickListener {
             it.startAnimation(setAnimationClickButton(this))
-            onMusic()
-            preferencesApp.edit().putBoolean("musicStatus", true).apply()
-            vibroMode()
+            musicVolume.setMusicVolume()
+            setSettingsMusicTrue(this)
+            vibroMode(this)
         }
         binding.buttonMusicOff.setOnClickListener {
             it.startAnimation(setAnimationClickButton(this))
-            offMusic()
-            preferencesApp.edit().putBoolean("musicStatus", false).apply()
-            vibroMode()
+            musicVolume.offMusicVolume()
+            setSettingsMusicFalse(this)
+            vibroMode(this)
         }
         binding.buttonVibroOn.setOnClickListener {
             it.startAnimation(setAnimationClickButton(this))
-            preferencesApp.edit().putBoolean("vibroStatus", true).apply()
-            vibroMode()
+            setSettingsVibroTrue(this)
+            initSettings(this)
+            vibroMode(this)
         }
         binding.buttonVibroOff.setOnClickListener {
             it.startAnimation(setAnimationClickButton(this))
             vibroEmulateOff(this)
-            preferencesApp.edit().putBoolean("vibroStatus", false).apply()
-            vibroMode()
-        }
-    }
-
-    private fun onMusic() =
-        managerMusic.setStreamVolume(AudioManager.STREAM_MUSIC, defaultMusicVolume, 0)
-
-    private fun offMusic() {
-        defaultMusicVolume = managerMusic.getStreamVolume(AudioManager.STREAM_MUSIC)
-        managerMusic.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun vibroMode() {
-        val isVibration = preferencesApp.getBoolean("vibroStatus", false)
-        if (isVibration) {
-            vibroEmulateDevice(this, 500)
+            setSettingsVibroFalse(this)
+            initSettings(this)
+            vibroMode(this)
         }
     }
 
