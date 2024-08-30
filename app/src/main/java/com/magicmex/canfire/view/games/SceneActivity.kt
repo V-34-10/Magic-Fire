@@ -1,7 +1,6 @@
 package com.magicmex.canfire.view.games
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,30 +11,24 @@ import com.magicmex.canfire.R
 import com.magicmex.canfire.databinding.ActivitySceneBinding
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager
+import com.magicmex.canfire.utils.preference.PreferenceManager.initGameName
 import com.magicmex.canfire.view.games.findgame.FindPairGameFragment
 import com.magicmex.canfire.view.games.kenogame.KenoGameFragment
 import com.magicmex.canfire.view.level.LevelsActivity
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
-    private lateinit var preferencesApp: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferencesApp = PreferenceManager.getPreference(this)
+        initGameName(this)
         initGameFragment()
     }
 
-    private fun initGameFragment() = replaceFragment(
-        createFragmentGames(
-            preferencesApp.getString(
-                "GameName",
-                getString(R.string.button_game_first)
-            )
-        ), R.id.container_games
-    )
+    private fun initGameFragment() =
+        replaceFragment(createFragmentGames(PreferenceManager.gameName), R.id.container_games)
 
     private fun createFragmentGames(game: String?): Fragment {
         return when (game) {
