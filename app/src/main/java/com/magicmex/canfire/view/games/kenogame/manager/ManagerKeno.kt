@@ -2,7 +2,6 @@ package com.magicmex.canfire.view.games.kenogame.manager
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,12 +16,10 @@ import com.magicmex.canfire.view.games.kenogame.dialog.HighScoreKenoManager
 
 object ManagerKeno {
 
-    private lateinit var preferencesApp: SharedPreferences
     private lateinit var recyclerViewSceneGame: RecyclerView
     private lateinit var kenoGameAdapter: KenoGameAdapter
     private val selectedNumbers = mutableListOf<KenoGame>()
     private val winningNumbers = mutableListOf<KenoGame>()
-    private var levelKenoGame: String = ""
     private var timer: CountDownTimer? = null
     private var elapsedTime: Long = 0
     private var gameStarted = false
@@ -30,7 +27,6 @@ object ManagerKeno {
 
     @SuppressLint("NotifyDataSetChanged")
     fun initRecyclerKenoScene(binding: ViewBinding, context: Context) {
-        preferencesApp = PreferenceManager.getPreference(context)
         val kenoNumbers = (1..35).map { KenoGame(it) }.toMutableList()
         kenoGameAdapter = KenoGameAdapter(
             kenoNumbers,
@@ -56,12 +52,11 @@ object ManagerKeno {
         context: Context,
         binding: ViewBinding
     ) {
-        levelKenoGame = PreferenceManager.selectedLevel
         if (selectedNumbers.contains(selectedNumber)) {
             selectedNumbers.remove(selectedNumber)
             selectedNumber.isSelected = false
         } else {
-            if (selectedNumbers.size < levelKenoGame.getMaxNumbers()) {
+            if (selectedNumbers.size < PreferenceManager.selectedLevel.getMaxNumbers()) {
                 selectedNumbers.add(selectedNumber)
                 selectedNumber.isSelected = true
             }
@@ -99,7 +94,7 @@ object ManagerKeno {
 
     private fun generateWinningNumbers() {
         winningNumbers.clear()
-        while (winningNumbers.size < levelKenoGame.getMaxNumbers()) {
+        while (winningNumbers.size < PreferenceManager.selectedLevel.getMaxNumbers()) {
             val randomValue = (1..35).random()
             if (!winningNumbers.any { it.index == randomValue }) {
                 winningNumbers.add(KenoGame(randomValue, isWinning = true))
@@ -119,7 +114,7 @@ object ManagerKeno {
         val isWin = selectedNumbers.any { selected ->
             winningNumbers.any { it.index == selected.index }
         }
-        val stats = HighScoreKenoManager.statsHighScoreKeno[levelKenoGame] ?: return
+        val stats = HighScoreKenoManager.statsHighScoreKeno[PreferenceManager.selectedLevel] ?: return
 
         stats.countAllGamesPlayed++
 
@@ -131,7 +126,7 @@ object ManagerKeno {
             stats.countLosses++
         }
 
-        HighScoreKenoManager.saveStatsScoreKenoGame(preferencesApp)
+        HighScoreKenoManager.saveStatsScoreKenoGame(PreferenceManager.getPreference(context))
         kenoGameAdapter.notifyDataSetChanged()
     }
 
