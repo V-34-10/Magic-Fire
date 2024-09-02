@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkNavigateToPrivacy() {
         if (!preferencesApp.getBoolean("PrivacyStatus", false)) {
             startActivity(Intent(this@MainActivity, PrivacyActivity::class.java))
-            preferencesApp.edit().putBoolean("PrivacyStatus", true).apply()
+
         } else {
             startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
         }
