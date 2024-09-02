@@ -19,21 +19,37 @@ object DialogFragmentsHighScoreFindPair {
         loadScoreFindPairGame(preferences)
         val stats = HighScoreFindPairManager.statsHighScoreFindPair
 
-        val levels = mapOf(
-            "Level 1" to Pair(R.id.time_level_first, R.id.steps_level_first),
-            "Level 2" to Pair(R.id.time_level_second, R.id.steps_level_second),
-            "Level 3" to Pair(R.id.time_level_three, R.id.steps_level_three)
-        )
+        val viewHolder = createViewHolder(dialogView)
 
-        levels.forEach { (level, viewIds) ->
-            val timeView = dialogView.findViewById<TextView>(viewIds.first)
-            val stepsView = dialogView.findViewById<TextView>(viewIds.second)
+        viewHolder.levels.forEach { (level, views) ->
             val levelStats = stats[level]!!
-
-            setScoreText(timeView, levelStats.bestTime)
-            stepsView.text = levelStats.bestSteps.toString()
+            setScoreText(views.first, levelStats.bestTime)
+            views.second.text = levelStats.bestSteps.toString()
         }
     }
+
+    private fun createViewHolder(dialogView: View): ViewHolder {
+        return ViewHolder(
+            mapOf(
+                "Level 1" to Pair(
+                    dialogView.findViewById(R.id.time_level_first),
+                    dialogView.findViewById(R.id.steps_level_first)
+                ),
+                "Level 2" to Pair(
+                    dialogView.findViewById(R.id.time_level_second),
+                    dialogView.findViewById(R.id.steps_level_second)
+                ),
+                "Level 3" to Pair(
+                    dialogView.findViewById(R.id.time_level_three),
+                    dialogView.findViewById(R.id.steps_level_three)
+                )
+            )
+        )
+    }
+
+    private data class ViewHolder(
+        val levels: Map<String, Pair<TextView, TextView>>
+    )
 
     @SuppressLint("SetTextI18n")
     private fun setScoreText(textView: TextView, bestTime: Long) {
