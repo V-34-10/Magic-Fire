@@ -6,12 +6,17 @@ object ItemManager {
 
     fun getImagesSwitchLevel(level: String): List<Int> {
         val baseImages = getImages(level)
-        return when (level) {
-            "Level 1" -> baseImages + baseImages.take(4)
-            "Level 2" -> baseImages + baseImages + baseImages.take(3)
-            "Level 3" -> baseImages + baseImages + baseImages + baseImages + baseImages.take(4)
-            else -> baseImages + baseImages.take(4)
+        val repetitions = when (level) {
+            "Level 1" -> 1 to 4
+            "Level 2" -> 2 to 3
+            "Level 3" -> 4 to 4
+            else -> 1 to 4
         }
+        return baseImages.repeatAndAdd(repetitions.first, repetitions.second)
+    }
+
+    private fun List<Int>.repeatAndAdd(repeatTimes: Int, extraElements: Int): List<Int> {
+        return this + List(repeatTimes) { this }.flatten() + take(extraElements)
     }
 
     private fun getImages(level: String): List<Int> {
