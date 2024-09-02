@@ -47,8 +47,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 initBorderBanner()
             }*/
-            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-            finish()
+            /*startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+            finish()*/
+            checkNavigateToPrivacy()
         }
     }
 
