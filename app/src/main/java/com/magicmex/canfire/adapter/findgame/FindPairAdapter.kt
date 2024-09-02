@@ -44,9 +44,9 @@ class FindPairAdapter(
 
     private fun calculateCardSize(context: Context, levelGame: String): Int {
         return when (levelGame) {
-            "Level 2" -> 60
-            "Level 3" -> 50
-            else -> 70
+            "Level 2" -> 70
+            "Level 3" -> 60
+            else -> 80
         }.dpConvertToPx(context)
     }
 
