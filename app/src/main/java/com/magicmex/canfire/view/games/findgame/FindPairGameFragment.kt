@@ -12,7 +12,7 @@ import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickBu
 import com.magicmex.canfire.utils.preference.PreferenceManager
 import com.magicmex.canfire.utils.preference.PreferenceManager.initSettings
 import com.magicmex.canfire.view.games.findgame.dialog.DialogFragmentsHighScoreFindPair
-import com.magicmex.canfire.view.games.findgame.manager.ManagerFindPair
+import com.magicmex.canfire.view.games.findgame.manager.FindPairGameManager
 import com.magicmex.canfire.view.level.LevelsActivity
 import com.magicmex.canfire.view.settings.music.MusicController
 import com.magicmex.canfire.view.settings.music.MusicStart
@@ -20,6 +20,7 @@ import com.magicmex.canfire.view.settings.music.MusicStart
 class FindPairGameFragment : Fragment() {
     private lateinit var binding: FragmentFindPairGameBinding
     private lateinit var controllerMusic: MusicController
+    private lateinit var findPairGameManager: FindPairGameManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +36,8 @@ class FindPairGameFragment : Fragment() {
         MusicStart.musicStartMode(R.raw.music_find_pair, controllerMusic)
         PreferenceManager.initLevelGame(requireContext())
         setUIBackgroundDependedLevel()
-        context?.let { ManagerFindPair.initFindPairGame(binding, it) }
+        context?.let { findPairGameManager = FindPairGameManager(it, binding) }
+        findPairGameManager.initGame(PreferenceManager.selectedLevel)
         initControlBarGame()
     }
 
@@ -57,11 +59,11 @@ class FindPairGameFragment : Fragment() {
     private fun initControlBarGame() {
         binding.btnClaim.setOnClickListener {
             it.startAnimation(setAnimationClickButton(requireContext()))
-            ManagerFindPair.resetFindPairGame(binding)
+            findPairGameManager.resetGame()
         }
         binding.btnHighScore.setOnClickListener {
             it.startAnimation(setAnimationClickButton(requireContext()))
-            ManagerFindPair.resetFindPairGame(binding)
+            findPairGameManager.resetGame()
             DialogFragmentsHighScoreFindPair.runDialogFindPairGame(
                 requireContext(),
                 PreferenceManager.getPreference(requireContext())
