@@ -10,7 +10,7 @@ import com.magicmex.canfire.databinding.ActivityLevelsBinding
 import com.magicmex.canfire.utils.animation.AnimationManager.setAnimationClickButton
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager.setLevelGame
-import com.magicmex.canfire.view.games.SceneActivity
+import com.magicmex.canfire.view.scene.SceneActivity
 
 class LevelsActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLevelsBinding.inflate(layoutInflater) }
