@@ -14,37 +14,41 @@ import com.magicmex.canfiree.view.games.kenogame.dialog.HighScoreKenoManager.loa
 
 object DialogFragmentsHighScoreKeno {
 
+    private data class LevelScoreData(
+        val winRateTextView: TextView,
+        val winsTextView: TextView,
+        val losesTextView: TextView
+    )
+
     @SuppressLint("SetTextI18n")
-    private fun setHighScoreKeno(preferences: SharedPreferences, dialogView: View) {
-        loadScoreKenoGame(preferences)
+    private fun setupLevelScore(
+        dialogView: View,
+        level: String,
+        stats: HighScoreKeno
+    ) {
+        val levelScoreData = when (level) {
+            "Level 1" -> LevelScoreData(
+                dialogView.findViewById(R.id.win_rate_level_first),
+                dialogView.findViewById(R.id.wins_level_first),
+                dialogView.findViewById(R.id.loses_level_first)
+            )
+            "Level 2" -> LevelScoreData(
+                dialogView.findViewById(R.id.win_rate_level_second),
+                dialogView.findViewById(R.id.wins_level_second),
+                dialogView.findViewById(R.id.loses_level_second)
+            )
+            "Level 3" -> LevelScoreData(
+                dialogView.findViewById(R.id.win_rate_level_three),
+                dialogView.findViewById(R.id.wins_level_three),
+                dialogView.findViewById(R.id.loses_level_three)
+            )
+            else -> return
+        }
 
-        val easyStatsEasy = HighScoreKenoManager.statsHighScoreKeno["Level 1"]!!
-        val easyStatsMedium = HighScoreKenoManager.statsHighScoreKeno["Level 2"]!!
-        val easyStatsHard = HighScoreKenoManager.statsHighScoreKeno["Level 3"]!!
-
-        val winRateLevelFirst = dialogView.findViewById<TextView>(R.id.win_rate_level_first)
-        val winsLevelFirst = dialogView.findViewById<TextView>(R.id.wins_level_first)
-        val losesLevelFirst = dialogView.findViewById<TextView>(R.id.loses_level_first)
-
-        val winRateLevelSecond = dialogView.findViewById<TextView>(R.id.win_rate_level_second)
-        val winsLevelSecond = dialogView.findViewById<TextView>(R.id.wins_level_second)
-        val losesLevelSecond = dialogView.findViewById<TextView>(R.id.loses_level_second)
-
-        val winRateLevelThree = dialogView.findViewById<TextView>(R.id.win_rate_level_three)
-        val winsLevelThree = dialogView.findViewById<TextView>(R.id.wins_level_three)
-        val losesLevelThree = dialogView.findViewById<TextView>(R.id.loses_level_three)
-
-        winRateLevelFirst.text = "%02d%%".format(calculateWinRateKeno(easyStatsEasy).toInt())
-        winsLevelFirst.text = easyStatsEasy.countWins.toString()
-        losesLevelFirst.text = easyStatsEasy.countLosses.toString()
-
-        winRateLevelSecond.text = " %02d%%".format(calculateWinRateKeno(easyStatsMedium).toInt())
-        winsLevelSecond.text = easyStatsMedium.countWins.toString()
-        losesLevelSecond.text = easyStatsMedium.countLosses.toString()
-
-        winRateLevelThree.text = "%02d%%".format(calculateWinRateKeno(easyStatsHard).toInt())
-        winsLevelThree.text = easyStatsHard.countWins.toString()
-        losesLevelThree.text = easyStatsHard.countLosses.toString()
+        levelScoreData.winRateTextView.text =
+            "%02d%%".format(calculateWinRateKeno(stats).toInt())
+        levelScoreData.winsTextView.text = stats.countWins.toString()
+        levelScoreData.losesTextView.text = stats.countLosses.toString()
     }
 
     private fun calculateWinRateKeno(levelStats: HighScoreKeno): Float {
@@ -62,7 +66,11 @@ object DialogFragmentsHighScoreKeno {
         dialog.setCanceledOnTouchOutside(false)
 
         val dialogView = dialog.findViewById<ConstraintLayout>(R.id.scoreKeno)
-        setHighScoreKeno(preferences, dialogView)
+
+        loadScoreKenoGame(preferences)
+        HighScoreKenoManager.statsHighScoreKeno.forEach { (level, stats) ->
+            setupLevelScore(dialogView, level, stats)
+        }
 
         dialog.show()
     }
