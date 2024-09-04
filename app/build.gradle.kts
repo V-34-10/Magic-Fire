@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.magicmex.canfire"
+    namespace = "com.magicmex.canfiree"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.magicmex.canfire"
+        applicationId = "com.magicmex.canfiree"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
