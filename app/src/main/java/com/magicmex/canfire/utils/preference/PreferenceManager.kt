@@ -18,6 +18,9 @@ object PreferenceManager {
     var musicStatus: Boolean = false
         private set
 
+    var privacyStatus: Boolean = false
+        private set
+
     fun initLevelGame(context: Context) {
         selectedLevel = getPreference(context).getString("LevelGame", "") ?: ""
     }
@@ -27,12 +30,22 @@ object PreferenceManager {
             .apply()
 
     fun initGameName(context: Context) {
-        gameName = getPreference(context).getString("GameName", context.getString(R.string.button_game_first)) ?: ""
+        gameName = getPreference(context).getString(
+            "GameName",
+            context.getString(R.string.button_game_first)
+        ) ?: ""
     }
 
     fun setGameName(context: Context, gameNameResId: Int) =
         getPreference(context).edit().putString("GameName", context.getString(gameNameResId))
             .apply()
+
+    fun initPrivacy(context: Context) {
+        privacyStatus = getPreference(context).getBoolean("PrivacyStatus", false)
+    }
+
+    fun setPrivacyTrue(context: Context) =
+        getPreference(context).edit().putBoolean("PrivacyStatus", true).apply()
 
     fun initSettings(context: Context) {
         vibroStatus = getPreference(context).getBoolean("vibroStatus", false)
