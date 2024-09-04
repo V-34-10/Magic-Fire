@@ -2,6 +2,7 @@ package com.magicmex.canfire.view.settings
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -40,38 +41,41 @@ class SettingsActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun buttonsControls() {
-        binding.buttonResetScore.setOnClickListener {
-            it.startAnimation(setAnimationClickButton(this))
-            Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT).show()
-            resetStatsScoreFindPairGame(PreferenceManager.getPreference(this))
-            resetStatsScoreKenoGame(PreferenceManager.getPreference(this))
+        val onClickListener = View.OnClickListener { view ->
+            view.startAnimation(setAnimationClickButton(this))
+            when (view.id) {
+                R.id.button_reset_score -> {
+                    Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT)
+                        .show()
+                    resetStatsScoreFindPairGame(PreferenceManager.getPreference(this))
+                    resetStatsScoreKenoGame(PreferenceManager.getPreference(this))
+                }
+                R.id.button_music_on -> {
+                    musicVolume.setMusicVolume()
+                    setSettingsMusicTrue(this)
+                }
+                R.id.button_music_off -> {
+                    musicVolume.offMusicVolume()
+                    setSettingsMusicFalse(this)
+                }
+                R.id.button_vibro_on -> {
+                    setSettingsVibroTrue(this)
+                    initSettings(this)
+                }
+                R.id.button_vibro_off -> {
+                    vibroEmulateOff(this)
+                    setSettingsVibroFalse(this)
+                    initSettings(this)
+                }
+            }
             vibroMode(this)
         }
-        binding.buttonMusicOn.setOnClickListener {
-            it.startAnimation(setAnimationClickButton(this))
-            musicVolume.setMusicVolume()
-            setSettingsMusicTrue(this)
-            vibroMode(this)
-        }
-        binding.buttonMusicOff.setOnClickListener {
-            it.startAnimation(setAnimationClickButton(this))
-            musicVolume.offMusicVolume()
-            setSettingsMusicFalse(this)
-            vibroMode(this)
-        }
-        binding.buttonVibroOn.setOnClickListener {
-            it.startAnimation(setAnimationClickButton(this))
-            setSettingsVibroTrue(this)
-            initSettings(this)
-            vibroMode(this)
-        }
-        binding.buttonVibroOff.setOnClickListener {
-            it.startAnimation(setAnimationClickButton(this))
-            vibroEmulateOff(this)
-            setSettingsVibroFalse(this)
-            initSettings(this)
-            vibroMode(this)
-        }
+
+        binding.buttonResetScore.setOnClickListener(onClickListener)
+        binding.buttonMusicOn.setOnClickListener(onClickListener)
+        binding.buttonMusicOff.setOnClickListener(onClickListener)
+        binding.buttonVibroOn.setOnClickListener(onClickListener)
+        binding.buttonVibroOff.setOnClickListener(onClickListener)
     }
 
     override fun onDestroy() {
