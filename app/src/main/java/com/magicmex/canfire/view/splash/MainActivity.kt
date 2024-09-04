@@ -6,13 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.appodeal.ads.Appodeal
+import com.appodeal.ads.InterstitialCallbacks
 import com.magicmex.canfire.databinding.ActivityMainBinding
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager
-import com.magicmex.canfire.view.border.BorderBanner
 import com.magicmex.canfire.view.privacy.PrivacyActivity
 import com.magicmex.canfire.view.welcome.WelcomeActivity
 import kotlinx.coroutines.delay
@@ -21,14 +23,50 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private lateinit var preferencesApp: SharedPreferences
-    private lateinit var borderBanner: BorderBanner
+    private var isAdShowed = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
         preferencesApp = PreferenceManager.getPreference(this)
-        borderBanner = BorderBanner(this, binding)
-        navigateTo()
+
+        if (checkStateEthernet()) {
+            setupAppodealCallbacks()
+        } else {
+            navigateTo()
+        }
+    }
+
+    private fun setupAppodealCallbacks() {
+        Appodeal.setInterstitialCallbacks(object : InterstitialCallbacks {
+            override fun onInterstitialLoaded(isPrecache: Boolean) {
+                if (!isAdShowed) {
+                    Appodeal.show(this@MainActivity, Appodeal.INTERSTITIAL)
+                }
+            }
+
+            override fun onInterstitialFailedToLoad() {
+                navigateTo()
+            }
+
+            override fun onInterstitialShown() {
+                isAdShowed = true
+            }
+
+            override fun onInterstitialShowFailed() {
+                navigateTo()
+            }
+
+            override fun onInterstitialClosed() {
+                checkNavigateToPrivacy()
+            }
+
+            override fun onInterstitialClicked() {}
+
+            override fun onInterstitialExpired() {
+                Appodeal.cache(this@MainActivity, Appodeal.INTERSTITIAL)
+            }
+        })
     }
 
     private fun getDisplayMetrics(): Int {
@@ -42,13 +80,6 @@ class MainActivity : AppCompatActivity() {
         loadingBar()
         lifecycleScope.launch {
             delay(3000L)
-            /*if (!checkStateEthernet()) {
-                checkNavigateToPrivacy()
-            } else {
-                initBorderBanner()
-            }*/
-            /*startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-            finish()*/
             checkNavigateToPrivacy()
         }
     }
@@ -65,28 +96,10 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ObsoleteSdkInt", "ServiceCast")
     private fun checkStateEthernet(): Boolean {
-        val activeNetworkInfo =
-            (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetworkInfo
-        return activeNetworkInfo != null && (activeNetworkInfo.isConnected || activeNetworkInfo.isConnectedOrConnecting)
-    }
-
-    private fun initBorderBanner() {
-        val hasUserData =
-            preferencesApp.contains("cookies") && preferencesApp.contains("userAgent")
-        if (hasUserData) {
-            val cookies = preferencesApp.getString("cookies", "")
-            val userAgent = preferencesApp.getString("userAgent", "")
-            val actionUrl = preferencesApp.getString("actionUrl", "")
-            val sourceUrl = preferencesApp.getString("sourceUrl", "")
-            borderBanner.loadImage(
-                sourceUrl.toString(),
-                actionUrl.toString(),
-                cookies,
-                userAgent
-            )
-        } else {
-            borderBanner.fetchInterstitialData()
-        }
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo?.isConnectedOrConnecting == true
     }
 
     private fun loadingBar() {
@@ -108,10 +121,5 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        borderBanner.cancel()
     }
 }
