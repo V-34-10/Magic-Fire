@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +13,7 @@ import com.appodeal.ads.InterstitialCallbacks
 import com.magicmex.canfire.databinding.ActivityMainBinding
 import com.magicmex.canfire.utils.navigation.NavigationManager
 import com.magicmex.canfire.utils.preference.PreferenceManager
+import com.magicmex.canfire.utils.preference.PreferenceManager.initPrivacy
 import com.magicmex.canfire.view.privacy.PrivacyActivity
 import com.magicmex.canfire.view.welcome.WelcomeActivity
 import kotlinx.coroutines.delay
@@ -21,14 +21,12 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private lateinit var preferencesApp: SharedPreferences
     private var isAdShowed = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        preferencesApp = PreferenceManager.getPreference(this)
-
+        initPrivacy(this)
         if (checkStateEthernet()) {
             setupAppodealCallbacks()
         } else {
@@ -84,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkNavigateToPrivacy() {
-        if (!preferencesApp.getBoolean("PrivacyStatus", false)) {
+        if (!PreferenceManager.privacyStatus) {
             startActivity(Intent(this@MainActivity, PrivacyActivity::class.java))
 
         } else {
