@@ -18,14 +18,12 @@ import com.magicmex.canfiree.utils.preference.PreferenceManager.setSettingsVibro
 import com.magicmex.canfiree.utils.preference.PreferenceManager.setSettingsVibroTrue
 import com.magicmex.canfiree.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
 import com.magicmex.canfiree.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
-import com.magicmex.canfiree.view.settings.music.MusicController
 import com.magicmex.canfiree.view.settings.music.MusicVolumeManager
 import com.magicmex.canfiree.view.settings.vibro.VibroController.vibroEmulateOff
 import com.magicmex.canfiree.view.settings.vibro.VibroStart.vibroMode
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
-    private lateinit var musicController: MusicController
     private lateinit var musicVolume: MusicVolumeManager
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -33,7 +31,6 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
-        musicController = MusicController(this)
         musicVolume = MusicVolumeManager(this)
         initSettings(this)
         buttonsControls()
@@ -76,11 +73,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.buttonMusicOff.setOnClickListener(onClickListener)
         binding.buttonVibroOn.setOnClickListener(onClickListener)
         binding.buttonVibroOff.setOnClickListener(onClickListener)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        musicController.release()
     }
 
     @Deprecated(
