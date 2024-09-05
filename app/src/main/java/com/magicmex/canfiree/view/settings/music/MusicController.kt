@@ -1,65 +1,31 @@
 package com.magicmex.canfiree.view.settings.music
 
 import android.content.Context
-import android.media.MediaPlayer
-import android.os.Handler
-import android.os.Looper
-import android.util.SparseArray
 import androidx.annotation.RawRes
 import com.magicmex.canfiree.utils.preference.PreferenceManager
 
 class MusicController(private val context: Context) {
-    private val mediaPlayers = SparseArray<MediaPlayer>()
-    private val handler = Handler(Looper.getMainLooper())
+    private val soundPlayers = mutableMapOf<Int, SoundPlayer>()
 
     fun playSound(@RawRes soundResId: Int, loop: Boolean = false) {
-        val existingPlayer = mediaPlayers[soundResId]
-        if (existingPlayer != null && existingPlayer.isPlaying) return
-
-        val mediaPlayer = MediaPlayer.create(context, soundResId).apply {
-            isLooping = loop
-            setOnCompletionListener {
-                if (!loop) handler.post { releaseMediaPlayer(soundResId) }
-            }
-            start()
+        val soundPlayer = soundPlayers.getOrPut(soundResId) {
+            SoundPlayer(context)
         }
-
-        mediaPlayers.put(soundResId, mediaPlayer)
+        soundPlayer.play(soundResId, loop)
     }
 
-    fun pause() {
-        for (i in 0 until mediaPlayers.size()) {
-            mediaPlayers.valueAt(i).takeIf { it.isPlaying }?.pause()
-        }
-    }
+    fun pause() = soundPlayers.values.forEach { it.pause() }
 
-    fun resume() {
-        for (i in 0 until mediaPlayers.size()) {
-            mediaPlayers.valueAt(i).takeIf { !it.isPlaying }?.start()
-        }
-    }
+    fun resume() = soundPlayers.values.forEach { it.resume() }
 
     fun release() {
-        for (i in 0 until mediaPlayers.size()) {
-            mediaPlayers.valueAt(i).release()
-        }
-        mediaPlayers.clear()
-    }
-
-    private fun releaseMediaPlayer(soundResId: Int) {
-        mediaPlayers[soundResId]?.let {
-            if (it.isPlaying) it.stop()
-            it.release()
-            mediaPlayers.remove(soundResId)
-        }
+        soundPlayers.values.forEach { it.release() }
+        soundPlayers.clear()
     }
 }
 
 object MusicStart {
-    fun musicStartMode(
-        sourceMusic: Int,
-        managerMusic: MusicController
-    ) {
+    fun musicStartMode(sourceMusic: Int, managerMusic: MusicController) {
         if (PreferenceManager.musicStatus) managerMusic.apply { playSound(sourceMusic, true) }
     }
 }
