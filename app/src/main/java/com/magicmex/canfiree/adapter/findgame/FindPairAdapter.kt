@@ -15,29 +15,20 @@ class FindPairAdapter(
     private val levelGame: String
 ) :
     RecyclerView.Adapter<FindPairViewHolder>() {
-
     var onFindPairClick: ((FindPair, Int) -> Unit)? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FindPairViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.find_pair_item, parent, false)
-
-        val cardSize = calculateCardSize(parent.context, levelGame)
-        adjustItemViewSize(itemView, cardSize)
-
+        adjustItemViewSize(itemView, calculateCardSize(parent.context, levelGame))
         return FindPairViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: FindPairViewHolder, position: Int) {
         val pairItem = pairFindList[position]
-        holder.pairImage.setImageResource(
-            if (pairItem.flip) pairItem.img else R.drawable.find_0
-        )
-
-        holder.itemView.setOnClickListener {
-            onFindPairClick?.invoke(pairItem, position)
-        }
+        holder.pairImage.setImageResource(if (pairItem.flip) pairItem.img else R.drawable.find_0)
+        holder.itemView.setOnClickListener { onFindPairClick?.invoke(pairItem, position) }
     }
 
     override fun getItemCount(): Int = pairFindList.size
