@@ -19,8 +19,8 @@ import com.magicmex.canfiree.utils.preference.PreferenceManager.setSettingsVibro
 import com.magicmex.canfiree.view.games.findgame.dialog.HighScoreFindPairManager.resetStatsScoreFindPairGame
 import com.magicmex.canfiree.view.games.kenogame.dialog.HighScoreKenoManager.resetStatsScoreKenoGame
 import com.magicmex.canfiree.view.settings.music.MusicVolumeManager
-import com.magicmex.canfiree.view.settings.vibro.VibroController.vibroEmulateOff
-import com.magicmex.canfiree.view.settings.vibro.VibroStart.vibroMode
+import com.magicmex.canfiree.view.settings.vibro.VibroController
+import com.magicmex.canfiree.view.settings.vibro.VibroStart
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
@@ -32,6 +32,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         NavigationManager.setNavigationBarVisibility(this)
         musicVolume = MusicVolumeManager(this)
+        VibroController.initialize(this)
         initSettings(this)
         buttonsControls()
     }
@@ -47,25 +48,29 @@ class SettingsActivity : AppCompatActivity() {
                     resetStatsScoreFindPairGame(PreferenceManager.getPreference(this))
                     resetStatsScoreKenoGame(PreferenceManager.getPreference(this))
                 }
+
                 R.id.button_music_on -> {
                     musicVolume.setMusicVolume()
                     setSettingsMusicTrue(this)
                 }
+
                 R.id.button_music_off -> {
                     musicVolume.offMusicVolume()
                     setSettingsMusicFalse(this)
                 }
+
                 R.id.button_vibro_on -> {
                     setSettingsVibroTrue(this)
                     initSettings(this)
                 }
+
                 R.id.button_vibro_off -> {
-                    vibroEmulateOff(this)
+                    VibroController.cancel()
                     setSettingsVibroFalse(this)
                     initSettings(this)
                 }
             }
-            vibroMode(this)
+            VibroStart.vibrateIfEnabled()
         }
 
         binding.buttonResetScore.setOnClickListener(onClickListener)
