@@ -1,5 +1,6 @@
 package com.magicmex.canfiree.view.settings.vibro
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
@@ -8,46 +9,30 @@ import android.os.VibratorManager
 import androidx.annotation.RequiresApi
 import com.magicmex.canfiree.utils.preference.PreferenceManager
 
+@SuppressLint("StaticFieldLeak")
 object VibroController {
-    private fun getVibrator(context: Context): Vibrator {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
+    private val vibratorWrapper: VibratorWrapper by lazy { VibratorWrapper(context) }
+    private lateinit var context: Context
+
+    fun initialize(context: Context) {
+        this.context = context.applicationContext
+    }
+
+    fun vibrate(duration: Long) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibratorWrapper.vibrate(duration)
         } else {
-            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibratorWrapper.vibrateCompat(duration)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun vibroEmulateDevice(context: Context, duration: Long) {
-        val vibrator = getVibrator(context)
-
-        if (vibrator.hasVibrator()) {
-            val vibrationEffect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE)
-            } else {
-                @Suppress("DEPRECATION")
-                null
-            }
-
-            if (vibrationEffect != null) {
-                vibrator.vibrate(vibrationEffect)
-            } else {
-                @Suppress("DEPRECATION")
-                vibrator.vibrate(duration)
-            }
-        }
-    }
-
-    fun vibroEmulateOff(context: Context) {
-        getVibrator(context).cancel()
-    }
+    fun cancel() = vibratorWrapper.cancel()
 }
 
 object VibroStart {
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun vibroMode(context: Context) {
-        if (PreferenceManager.vibroStatus) VibroController.vibroEmulateDevice(context, 500)
+    fun vibrateIfEnabled(duration: Long = 500) {
+        if (PreferenceManager.vibroStatus) {
+            VibroController.vibrate(duration)
+        }
     }
 }
