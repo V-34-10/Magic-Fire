@@ -3,10 +3,6 @@ package com.magicmex.canfiree.view.settings.vibro
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
-import androidx.annotation.RequiresApi
 import com.magicmex.canfiree.utils.preference.PreferenceManager
 
 @SuppressLint("StaticFieldLeak")
