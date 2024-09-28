@@ -5,7 +5,7 @@ import com.appodeal.ads.Appodeal
 import com.appodeal.ads.InterstitialCallbacks
 
 object AdManager {
-    private var isAdShowed = false
+    var isAdShowed = false
     fun initializeAd(activity: AppCompatActivity) {
         Appodeal.setInterstitialCallbacks(object : InterstitialCallbacks {
             override fun onInterstitialLoaded(isPrecache: Boolean) {
